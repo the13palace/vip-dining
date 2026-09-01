@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIP Dining Privilege</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: #0d0d0d;
+      font-family: Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      color: #fff;
+    }
+    .vip-card {
+      width: 100%;
+      max-width: 430px;
+      aspect-ratio: 1.58;
+      border: 1px solid #5a5a5a;
+      border-radius: 22px;
+      padding: 28px;
+      background: linear-gradient(135deg,#1e1e1e,#0b0b0b);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 14px 44px rgba(0,0,0,.45);
+    }
+    .brand { font-size: 26px; font-weight: 700; letter-spacing: 2px; }
+    .tag { color: #c9c9c9; margin-top: 4px; font-size: 13px; letter-spacing: 1px; }
+    .name { font-size: 25px; margin-top: 12px; }
+    .vipno { color: #c4c4c4; margin-top: 4px; }
+    .bottom { display: flex; justify-content: space-between; align-items: end; gap: 16px; }
+    .priv { font-size: 20px; font-weight: 700; }
+    #qrcode { background: #fff; padding: 6px; border-radius: 6px; width: 92px; height: 92px; }
+    .inactive { text-align: center; max-width: 430px; color: #ffcccc; }
+  </style>
+</head>
+<body>
+  <div id="container" class="inactive">Loading...</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbwifWZHiKFjal1NY3el6u4u6aBZIF6QCxRhnl9v2wz0PG_5TymN-1Gw96mf7rSGYfz2-w/exec";
+    // 請換成你實際部署 verify.html 的公開網址
+    const VERIFY_PAGE_URL = "PASTE_YOUR_PUBLIC_VERIFY_PAGE_URL_HERE";
+
+    const params = new URLSearchParams(window.location.search);
+    const vipNo = params.get('id');
+    const container = document.getElementById('container');
+
+    async function loadCard() {
+      if (!vipNo) {
+        container.textContent = 'Invalid membership link.';
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_URL}?action=verify&id=${encodeURIComponent(vipNo)}`);
+        const result = await response.json();
+
+        if (!result.success || result.status !== 'Approved') {
+          container.textContent = 'This VIP privilege is not active.';
+          return;
+        }
+
+        container.className = 'vip-card';
+        container.innerHTML = `
+          <div>
+            <div class="brand">THE 13 PALACE</div>
+            <div class="tag">VIP DINING PRIVILEGE</div>
+          </div>
+
+          <div>
+            <div class="name">${escapeHtml(result.name)}</div>
+            <div class="vipno">VIP No. ${escapeHtml(result.vipNo)}</div>
+          </div>
+
+          <div class="bottom">
+            <div>
+              <div class="priv">32% Dining Privilege</div>
+              <div style="margin-top:4px;color:#bdbdbd;font-size:12px">Subject to verification</div>
+            </div>
+            <div id="qrcode"></div>
+          </div>
+        `;
+
+        new QRCode(document.getElementById('qrcode'), {
+          text: `${VERIFY_PAGE_URL}?id=${encodeURIComponent(result.vipNo)}`,
+          width: 80,
+          height: 80
+        });
+      } catch (err) {
+        container.textContent = 'Unable to load membership card.';
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value || '')
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#039;');
+    }
+
+    loadCard();
+  </script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIP Dining Privilege Registration</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: #111;
+      color: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .wrap {
+      width: 100%;
+      max-width: 520px;
+      background: #1a1a1a;
+      border: 1px solid #3a3a3a;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+    }
+    .brand {
+      text-align: center;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .subtitle {
+      text-align: center;
+      color: #cfcfcf;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+    label {
+      display: block;
+      margin: 16px 0 8px;
+      font-size: 14px;
+      color: #d9d9d9;
+    }
+    input {
+      width: 100%;
+      border: 1px solid #555;
+      background: #0f0f0f;
+      color: #fff;
+      padding: 14px 15px;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+    }
+    input:focus { border-color: #999; }
+    button {
+      width: 100%;
+      margin-top: 22px;
+      border: 0;
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #f1f1f1;
+      color: #111;
+    }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+    .note {
+      margin-top: 18px;
+      font-size: 12px;
+      color: #9f9f9f;
+      line-height: 1.6;
+    }
+    .message {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 10px;
+      display: none;
+      line-height: 1.5;
+    }
+    .ok { background: #17351f; color: #dff6e6; }
+    .err { background: #3a1717; color: #ffdede; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="brand">THE 13 PALACE</div>
+    <div class="subtitle">VIP Dining Privilege Registration<br>貴賓餐飲禮遇登記</div>
+
+    <form id="vipForm">
+      <label for="name">Name / 姓名</label>
+      <input id="name" name="name" type="text" maxlength="80" required />
+
+      <label for="phone">Mobile / 手機號碼</label>
+      <input id="phone" name="phone" type="tel" maxlength="30" required />
+
+      <label for="email">Email / 電郵（選填）</label>
+      <input id="email" name="email" type="email" maxlength="120" />
+
+      <label for="inviteCode">Invitation Code / 邀請碼</label>
+      <input id="inviteCode" name="inviteCode" type="text" maxlength="50" required />
+
+      <button id="submitBtn" type="submit">Submit Registration / 提交登記</button>
+    </form>
+
+    <div id="message" class="message"></div>
+
+    <div class="note">
+      提交登記不代表禮遇已生效。所有申請須經確認及批准後方可使用。
+      Submitted registration does not constitute approval. Privileges are subject to verification and activation.
+    </div>
+  </main>
+
+  <script>
+    // 1) 把下面網址換成你部署後的 Google Apps Script Web App URL
+    const API_URL = "https://script.google.com/macros/s/AKfycbwifWZHiKFjal1NY3el6u4u6aBZIF6QCxRhnl9v2wz0PG_5TymN-1Gw96mf7rSGYfz2-w/exec";
+
+    const form = document.getElementById('vipForm');
+    const button = document.getElementById('submitBtn');
+    const message = document.getElementById('message');
+
+    function showMessage(text, type) {
+      message.textContent = text;
+      message.className = `message ${type}`;
+      message.style.display = 'block';
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!API_URL || API_URL.includes('PASTE_YOUR')) {
+        showMessage('系統尚未設定 API URL，請先完成 Google Apps Script 部署。', 'err');
+        return;
+      }
+
+      const payload = {
+        action: 'register',
+        name: document.getElementById('name').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        inviteCode: document.getElementById('inviteCode').value.trim()
+      };
+
+      button.disabled = true;
+      button.textContent = 'Submitting...';
+      message.style.display = 'none';
+
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+          throw new Error(result.message || 'Registration failed');
+        }
+
+        showMessage(
+          `登記已提交。申請編號：${result.applicationId}。待審批後方可享用 VIP 餐飲禮遇。`,
+          'ok'
+        );
+        form.reset();
+      } catch (err) {
+        showMessage(`提交失敗：${err.message}`, 'err');
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Submit Registration / 提交登記';
+      }
+    });
+  </script>
+</body>
+</html>

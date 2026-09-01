@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIP Verification</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: #111;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      width: 100%;
+      max-width: 460px;
+      background: #1b1b1b;
+      border: 1px solid #3c3c3c;
+      border-radius: 18px;
+      padding: 30px;
+      text-align: center;
+    }
+    .brand { font-size: 26px; font-weight: 700; letter-spacing: 2px; }
+    .status { font-size: 30px; font-weight: 800; margin: 26px 0 14px; }
+    .active { color: #bff0c9; }
+    .inactive { color: #ffc4c4; }
+    .field { margin-top: 18px; }
+    .label { color: #a9a9a9; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+    .value { margin-top: 6px; font-size: 19px; }
+    .small { margin-top: 24px; color: #999; font-size: 12px; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="brand">THE 13 PALACE</div>
+    <div style="margin-top:8px;color:#cfcfcf">VIP Verification</div>
+
+    <div id="status" class="status">Checking...</div>
+
+    <div class="field">
+      <div class="label">Name</div>
+      <div id="name" class="value">-</div>
+    </div>
+
+    <div class="field">
+      <div class="label">VIP No.</div>
+      <div id="vipNo" class="value">-</div>
+    </div>
+
+    <div class="field">
+      <div class="label">Dining Privilege</div>
+      <div id="privilege" class="value">-</div>
+    </div>
+
+    <div class="small">餐廳員工應以此即時驗證結果為準，不應只憑電子卡截圖提供優惠。</div>
+  </main>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbwifWZHiKFjal1NY3el6u4u6aBZIF6QCxRhnl9v2wz0PG_5TymN-1Gw96mf7rSGYfz2-w/exec";
+    const params = new URLSearchParams(window.location.search);
+    const vipNo = params.get('id');
+
+    const statusEl = document.getElementById('status');
+    const nameEl = document.getElementById('name');
+    const vipNoEl = document.getElementById('vipNo');
+    const privilegeEl = document.getElementById('privilege');
+
+    async function verify() {
+      if (!vipNo) {
+        statusEl.textContent = 'INVALID';
+        statusEl.className = 'status inactive';
+        return;
+      }
+
+      if (!API_URL || API_URL.includes('PASTE_YOUR')) {
+        statusEl.textContent = 'SYSTEM NOT CONFIGURED';
+        statusEl.className = 'status inactive';
+        return;
+      }
+
+      try {
+        const url = `${API_URL}?action=verify&id=${encodeURIComponent(vipNo)}`;
+        const response = await fetch(url);
+        const result = await response.json();
+
+        nameEl.textContent = result.name || '-';
+        vipNoEl.textContent = result.vipNo || vipNo;
+        privilegeEl.textContent = result.privilege || '-';
+
+        if (result.success && result.status === 'Approved') {
+          statusEl.textContent = '✓ ACTIVE';
+          statusEl.className = 'status active';
+        } else {
+          statusEl.textContent = result.status ? `✕ ${result.status.toUpperCase()}` : '✕ INVALID';
+          statusEl.className = 'status inactive';
+        }
+      } catch (err) {
+        statusEl.textContent = 'SYSTEM ERROR';
+        statusEl.className = 'status inactive';
+      }
+    }
+
+    verify();
+  </script>
+</body>
+</html>
