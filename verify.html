@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Member Verification | 會員驗證</title>
 <style>
 *{box-sizing:border-box}
@@ -21,54 +21,79 @@ body{margin:0;background:#f0ebe3;color:#291f21;font-family:Arial,"PingFang TC","
 .row strong{text-align:right;font-weight:500}
 .priv{background:#f7f1e9;border-radius:13px;padding:15px;margin-top:18px}
 .priv h3{font-size:12px;letter-spacing:1px;margin:0 0 10px;color:#6d1532}
-.item{margin-top:10px;font-size:13px;line-height:1.5}
+.item{padding:13px 0;border-top:1px solid #e7dbcd;font-size:13px;line-height:1.55}
+.item:first-of-type{border-top:0;padding-top:0}
+.title{font-weight:700;color:#3c2530}
+.benefit{font-family:Georgia,"Times New Roman",serif;font-size:21px;color:#6d1532;margin:5px 0 8px}
+.detail{margin-top:5px;color:#5e5351}
+.detail b{color:#392d2c}
 .check{margin-top:20px;padding:15px;border:1px solid #d8c7af;border-radius:12px;font-size:12px;line-height:1.65;color:#5e5351}
+.notice{margin-top:16px;padding:13px 14px;background:#fff7ed;border-left:3px solid #a27a43;font-size:12px;line-height:1.6;color:#594b45}
 .footer{text-align:center;font-size:10px;color:#90837e;padding:0 22px 23px;line-height:1.6}
+.loading{text-align:center;padding:42px 20px;color:#766a66}
 </style>
 </head>
 <body>
 <div id="app" class="panel">
- <div class="head"><div class="brand">THE 13 PALACE</div><div class="cn">十三皇宮</div></div>
- <div class="body">Verifying... / 驗證中...</div>
+  <div class="head"><div class="brand">THE 13 PALACE</div><div class="cn">十三皇宮</div></div>
+  <div class="loading">Verifying... / 驗證中...</div>
 </div>
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbwifWZHiKFjal1NY3el6u4u6aBZIF6QCxRhnl9v2wz0PG_5TymN-1Gw96mf7rSGYfz2-w/exec";
+const API_URL="https://script.google.com/macros/s/AKfycbxdnu8gt-ryCQBBfFIHatvrVMouNy4_CNFrulN2zK8-geaaVwRoD_eZ3NwlcDFw7mHA/exec";
 const token=new URLSearchParams(location.search).get("t");
 const app=document.getElementById("app");
 const esc=(v)=>String(v||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 
+function privilegeHtml(p){
+  const venue = p.venueEn || p.venueZh ? `<div class="detail"><b>Venue / 適用場所：</b>${esc(p.venueEn)}${p.venueEn&&p.venueZh?' / ':''}${esc(p.venueZh)}</div>` : '';
+  const eligible = p.eligibleItemsEn || p.eligibleItemsZh ? `<div class="detail"><b>Eligible / 適用：</b>${esc(p.eligibleItemsEn)}${p.eligibleItemsEn&&p.eligibleItemsZh?' / ':''}${esc(p.eligibleItemsZh)}</div>` : '';
+  const excluded = p.excludedItemsEn || p.excludedItemsZh ? `<div class="detail"><b>Excluded / 不適用：</b>${esc(p.excludedItemsEn)}${p.excludedItemsEn&&p.excludedItemsZh?' / ':''}${esc(p.excludedItemsZh)}</div>` : '';
+  const hours = p.hoursEn || p.hoursZh ? `<div class="detail"><b>Hours / 時段：</b>${esc(p.hoursEn)}${p.hoursEn&&p.hoursZh?' / ':''}${esc(p.hoursZh)}</div>` : '';
+  const validity = p.validFrom || p.validUntil ? `<div class="detail"><b>Validity / 有效期：</b>${esc(p.validFrom||'')} ${p.validFrom&&p.validUntil?'–':''} ${esc(p.validUntil||'')}</div>` : '';
+  return `<div class="item">
+    <div class="title">${esc(p.titleEn)}${p.titleEn&&p.titleZh?' / ':''}${esc(p.titleZh)}</div>
+    <div class="benefit">${esc(p.benefitEn)}${p.benefitEn&&p.benefitZh?' / ':''}${esc(p.benefitZh)}</div>
+    ${venue}${eligible}${excluded}${hours}${validity}
+  </div>`;
+}
+
 async function load(){
- let data={success:false,status:"Invalid"};
- try{
-   if(token){
-     const r=await fetch(`${API_URL}?action=verifyV2&t=${encodeURIComponent(token)}`);
-     data=await r.json();
-   }
- }catch(e){}
+  let data={success:false,status:"Invalid"};
+  try{
+    if(token){
+      const r=await fetch(`${API_URL}?action=verifyV2&t=${encodeURIComponent(token)}`,{cache:'no-store'});
+      data=await r.json();
+    }
+  }catch(e){}
 
- const active=data.success && data.status==="Active";
- const priv=(data.privileges||[]).map(p=>`<div class="item"><strong>${esc(p.titleEn)} / ${esc(p.titleZh)}</strong><br>${esc(p.benefitEn)} / ${esc(p.benefitZh)}</div>`).join("");
+  const active=data.success && data.status==="Active";
+  const priv=(data.privileges||[]).map(privilegeHtml).join("");
 
- app.innerHTML=`
-   <div class="head"><div class="brand">THE 13 PALACE</div><div class="cn">十三皇宮</div></div>
-   <div class="body">
-     <div class="result">
-       <div class="${active?'ok':'bad'}">${active?'ACTIVE MEMBER':'NOT VALID'}</div>
-       <div class="zhstatus">${active?'有效會員':'會員資格無效或不可使用'}</div>
-     </div>
-     ${active ? `
-       <div class="row"><span>Name / 姓名</span><strong>${esc(data.maskedName)}</strong></div>
-       <div class="row"><span>Member No. / 會員編號</span><strong>${esc(data.vipNo)}</strong></div>
-       <div class="row"><span>Mobile Verification / 手機核對</span><strong>•••• ${esc(data.phoneLast4)}</strong></div>
-       <div class="row"><span>Valid Until / 有效至</span><strong>${esc(data.expiryDate||"—")}</strong></div>
-       <div class="priv"><h3>CURRENT PRIVILEGES / 現行禮遇</h3>${priv||'No current privileges / 目前暫無適用禮遇'}</div>
-       <div class="check">
-         Restaurant staff should confirm the guest's registered mobile number ending before applying any privilege.<br>
-         餐廳員工在套用任何會員禮遇前，應先向客人核對登記手機號碼尾四位。
-       </div>` :
-       `<div class="check">Do not apply any Palace Privilege benefit. Please contact the authorised Palace Privilege administrator if assistance is required.<br>請勿套用任何 Palace Privilege 禮遇。如需協助，請聯絡獲授權的 Palace Privilege 管理人員。</div>`}
-   </div>
-   <div class="footer">Real-time membership verification / 會員資格即時驗證</div>`;
+  app.innerHTML=`
+    <div class="head"><div class="brand">THE 13 PALACE</div><div class="cn">十三皇宮</div></div>
+    <div class="body">
+      <div class="result">
+        <div class="${active?'ok':'bad'}">${active?'ACTIVE MEMBER':'NOT VALID'}</div>
+        <div class="zhstatus">${active?'有效會員':'會員資格無效或不可使用'}</div>
+      </div>
+      ${active ? `
+        <div class="row"><span>Name / 姓名</span><strong>${esc(data.maskedName)}</strong></div>
+        <div class="row"><span>Member No. / 會員編號</span><strong>${esc(data.vipNo)}</strong></div>
+        <div class="row"><span>Mobile / 手機</span><strong>•••• ${esc(data.phoneLast4)}</strong></div>
+        <div class="row"><span>Valid Until / 有效至</span><strong>${esc(data.expiryDate)}</strong></div>
+        <div class="priv">
+          <h3>CURRENT PRIVILEGES / 現行會員禮遇</h3>
+          ${priv || '<div class="item">No current privilege / 暫無現行禮遇</div>'}
+        </div>
+        <div class="check"><strong>Staff Check / 員工核對</strong><br>
+        Please confirm the guest's registered mobile number ending before applying any privilege.<br>
+        使用禮遇前，請與客人核對登記手機號碼尾四位。</div>
+        <div class="notice">This verification page reflects the member status and privilege conditions currently recorded by The 13 Palace. / 本頁顯示十三皇宮系統目前記錄的會員狀態及禮遇條件。</div>
+      ` : `
+        <div class="notice">Do not apply Palace Privilege benefits. Please contact the authorised Palace Privilege administrator if assistance is required.<br>請勿提供 Palace Privilege 會員禮遇。如有需要，請聯絡獲授權之會員管理人員。</div>
+      `}
+    </div>
+    <div class="footer">PALACE PRIVILEGE · THE 13 PALACE<br>尊尚禮遇 · 十三皇宮</div>`;
 }
 load();
 </script>
