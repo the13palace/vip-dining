@@ -1,114 +1,107 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VIP Dining Privilege</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      background: #0d0d0d;
-      font-family: Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
-      color: #fff;
-    }
-    .vip-card {
-      width: 100%;
-      max-width: 430px;
-      aspect-ratio: 1.58;
-      border: 1px solid #5a5a5a;
-      border-radius: 22px;
-      padding: 28px;
-      background: linear-gradient(135deg,#1e1e1e,#0b0b0b);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 14px 44px rgba(0,0,0,.45);
-    }
-    .brand { font-size: 26px; font-weight: 700; letter-spacing: 2px; }
-    .tag { color: #c9c9c9; margin-top: 4px; font-size: 13px; letter-spacing: 1px; }
-    .name { font-size: 25px; margin-top: 12px; }
-    .vipno { color: #c4c4c4; margin-top: 4px; }
-    .bottom { display: flex; justify-content: space-between; align-items: end; gap: 16px; }
-    .priv { font-size: 20px; font-weight: 700; }
-    #qrcode { background: #fff; padding: 6px; border-radius: 6px; width: 92px; height: 92px; }
-    .inactive { text-align: center; max-width: 430px; color: #ffcccc; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Palace Privilege | 十三皇宮尊尚禮遇</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#efe9df;color:#261c1e;font-family:Arial,"PingFang TC","Microsoft JhengHei",sans-serif;min-height:100vh;padding:24px 16px}
+.wrap{max-width:470px;margin:0 auto}
+.card{position:relative;overflow:hidden;background:linear-gradient(145deg,#4b1128,#240913);color:#fff;border-radius:24px;padding:28px;min-height:300px;box-shadow:0 18px 50px rgba(52,13,28,.24);border:1px solid rgba(214,183,124,.5)}
+.card:before{content:"";position:absolute;right:-90px;top:-110px;width:260px;height:260px;border:1px solid rgba(221,191,135,.19);border-radius:50%}
+.brand{font-family:Georgia,"Times New Roman",serif;letter-spacing:3px;font-size:23px}
+.cn{font-size:11px;letter-spacing:4px;color:#e0c79d;margin-top:3px}
+.tag{margin-top:26px;color:#d9bc8d;font-size:10px;letter-spacing:2.2px}
+.name{font-family:Georgia,"Times New Roman",serif;font-size:26px;margin-top:7px}
+.meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:25px;font-size:11px;color:#ddcdbf}
+.meta strong{display:block;color:#fff;font-size:14px;margin-top:4px;font-weight:400}
+.bottom{display:flex;align-items:flex-end;justify-content:space-between;margin-top:25px;gap:16px}
+.status{font-size:11px;letter-spacing:1.4px;color:#dec48f}
+#qrcode{background:white;padding:7px;border-radius:8px;width:94px;height:94px}
+.section{background:#fffdf9;border:1px solid #d8cab5;border-radius:18px;padding:22px;margin-top:16px}
+.section h3{font-family:Georgia,"Times New Roman",serif;font-size:18px;font-weight:400;margin:0 0 2px;color:#3e1221}
+.zhheading{font-size:13px;color:#8a173b;margin-bottom:16px}
+.priv{padding:15px 0;border-top:1px solid #eee3d5}
+.priv:first-of-type{border-top:0;padding-top:0}
+.priv-title{font-weight:600;font-size:14px}
+.priv-zh{font-size:13px;color:#6d1532;margin-top:3px}
+.benefit{font-family:Georgia,"Times New Roman",serif;font-size:19px;margin-top:9px}
+.benefit-zh{font-size:14px;color:#6d1532;margin-top:3px}
+.desc{font-size:12px;line-height:1.6;color:#776b67;margin-top:8px}
+.dates{font-size:11px;color:#948781;margin-top:8px}
+.note{font-size:11px;line-height:1.7;color:#81746f;text-align:center;margin:17px 10px}
+.error{max-width:470px;margin:80px auto;background:#fff;padding:30px;border-radius:18px;text-align:center;color:#6d1532;line-height:1.8}
+</style>
 </head>
 <body>
-  <div id="container" class="inactive">Loading...</div>
+<div id="app" class="wrap"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+const API_URL="https://script.google.com/macros/s/AKfycbwifWZHiKFjal1NY3el6u4u6aBZIF6QCxRhnl9v2wz0PG_5TymN-1Gw96mf7rSGYfz2-w/exec";
+const VERIFY_URL="https://the13palace.github.io/vip-dining/verify.html";
+const token=new URLSearchParams(location.search).get("t");
+const app=document.getElementById("app");
+const esc=(v)=>String(v||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbwifWZHiKFjal1NY3el6u4u6aBZIF6QCxRhnl9v2wz0PG_5TymN-1Gw96mf7rSGYfz2-w/exec";
-    // 請換成你實際部署 verify.html 的公開網址
-    const VERIFY_PAGE_URL = "https://the13palace.github.io/vip-dining/verify.html";
+function datePair(p) {
+  if(!p.validFrom && !p.validUntil) return "";
+  const a=p.validFrom || "—";
+  const b=p.validUntil || "Ongoing / 持續有效";
+  return `<div class="dates">Valid / 有效期：${esc(a)} – ${esc(b)}</div>`;
+}
 
-    const params = new URLSearchParams(window.location.search);
-    const vipNo = params.get('id');
-    const container = document.getElementById('container');
+async function load() {
+ if(!token) return fail("Invalid membership link.<br>會員連結無效。");
+ try {
+  const r=await fetch(`${API_URL}?action=cardV2&t=${encodeURIComponent(token)}`);
+  const x=await r.json();
+  if(!x.success) return fail((x.message||"Unable to load membership.")+"<br>未能載入會員資料。");
+  if(x.status!=="Active") return fail(`Membership status / 會員狀態：<strong>${esc(x.status)}</strong><br>Please contact Palace Privilege if assistance is required.<br>如需協助，請聯絡 Palace Privilege。`);
 
-    async function loadCard() {
-      if (!vipNo) {
-        container.textContent = 'Invalid membership link.';
-        return;
-      }
+  const privs=(x.privileges||[]).map(p=>`
+   <div class="priv">
+     <div class="priv-title">${esc(p.titleEn)}</div>
+     <div class="priv-zh">${esc(p.titleZh)}</div>
+     <div class="benefit">${esc(p.benefitEn)}</div>
+     <div class="benefit-zh">${esc(p.benefitZh)}</div>
+     <div class="desc">${esc(p.descriptionEn)}<br>${esc(p.descriptionZh)}</div>
+     ${datePair(p)}
+   </div>`).join("");
 
-      try {
-        const response = await fetch(`${API_URL}?action=verify&id=${encodeURIComponent(vipNo)}`);
-        const result = await response.json();
+  app.innerHTML=`
+   <div class="card">
+    <div class="brand">THE 13 PALACE</div>
+    <div class="cn">十三皇宮</div>
+    <div class="tag">PALACE PRIVILEGE · 尊尚禮遇</div>
+    <div class="name">${esc(x.name)}</div>
+    <div class="meta">
+      <div>MEMBER NO. / 會員編號<strong>${esc(x.vipNo)}</strong></div>
+      <div>VALID UNTIL / 有效至<strong>${esc(x.expiryDate||"—")}</strong></div>
+    </div>
+    <div class="bottom">
+      <div class="status">ACTIVE MEMBER · 有效會員</div>
+      <div id="qrcode"></div>
+    </div>
+   </div>
+   <section class="section">
+     <h3>Current Privileges</h3>
+     <div class="zhheading">現行會員禮遇</div>
+     ${privs || '<div class="desc">No current privileges are available at this time.<br>目前暫無適用禮遇。</div>'}
+   </section>
+   <div class="note">
+    Privileges may change from time to time. Please refer to this page for the latest applicable privileges.<br>
+    會員禮遇或會不時更新，最新適用禮遇以本頁顯示為準。
+   </div>`;
 
-        if (!result.success || result.status !== 'Approved') {
-          container.textContent = 'This VIP privilege is not active.';
-          return;
-        }
-
-        container.className = 'vip-card';
-        container.innerHTML = `
-          <div>
-            <div class="brand">THE 13 PALACE</div>
-            <div class="tag">VIP DINING PRIVILEGE</div>
-          </div>
-
-          <div>
-            <div class="name">${escapeHtml(result.name)}</div>
-            <div class="vipno">VIP No. ${escapeHtml(result.vipNo)}</div>
-          </div>
-
-          <div class="bottom">
-            <div>
-              <div class="priv">32% Dining Privilege</div>
-              <div style="margin-top:4px;color:#bdbdbd;font-size:12px">Subject to verification</div>
-            </div>
-            <div id="qrcode"></div>
-          </div>
-        `;
-
-        new QRCode(document.getElementById('qrcode'), {
-          text: `${VERIFY_PAGE_URL}?id=${encodeURIComponent(result.vipNo)}`,
-          width: 80,
-          height: 80
-        });
-      } catch (err) {
-        container.textContent = 'Unable to load membership card.';
-      }
-    }
-
-    function escapeHtml(value) {
-      return String(value || '')
-        .replaceAll('&','&amp;')
-        .replaceAll('<','&lt;')
-        .replaceAll('>','&gt;')
-        .replaceAll('"','&quot;')
-        .replaceAll("'",'&#039;');
-    }
-
-    loadCard();
-  </script>
+   new QRCode(document.getElementById("qrcode"), {
+     text:`${VERIFY_URL}?t=${encodeURIComponent(token)}`,
+     width:80,height:80
+   });
+ } catch(e) { fail("Unable to load membership.<br>未能載入會員資料。"); }
+}
+function fail(t){app.innerHTML=`<div class="error">${t}</div>`}
+load();
+</script>
 </body>
 </html>
