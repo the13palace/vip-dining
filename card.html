@@ -22,14 +22,24 @@ body{margin:0;background:#efe9df;color:#261c1e;font-family:Arial,"PingFang TC","
 .section{background:#fffdf9;border:1px solid #d8cab5;border-radius:18px;padding:22px;margin-top:16px}
 .section h3{font-family:Georgia,"Times New Roman",serif;font-size:18px;font-weight:400;margin:0 0 2px;color:#3e1221}
 .zhheading{font-size:13px;color:#8a173b;margin-bottom:16px}
-.priv{padding:15px 0;border-top:1px solid #eee3d5}
+.priv{padding:17px 0;border-top:1px solid #eee3d5}
 .priv:first-of-type{border-top:0;padding-top:0}
 .priv-title{font-weight:600;font-size:14px}
 .priv-zh{font-size:13px;color:#6d1532;margin-top:3px}
 .benefit{font-family:Georgia,"Times New Roman",serif;font-size:19px;margin-top:9px}
 .benefit-zh{font-size:14px;color:#6d1532;margin-top:3px}
-.desc{font-size:12px;line-height:1.6;color:#776b67;margin-top:8px}
+.desc{font-size:12px;line-height:1.65;color:#776b67;margin-top:8px}
 .dates{font-size:11px;color:#948781;margin-top:8px}
+.facts{margin-top:11px;border-top:1px solid #f0e7dc;padding-top:9px}
+.fact{font-size:11.5px;line-height:1.55;color:#5e5551;margin:4px 0}
+.fact b{color:#3e1221;font-weight:600}
+.terms{margin-top:12px;border-top:1px solid #eee3d5;padding-top:10px}
+.terms summary{cursor:pointer;list-style:none;font-size:12px;color:#6d1532;font-weight:600;padding:4px 0}
+.terms summary::-webkit-details-marker{display:none}
+.terms summary:after{content:"＋";float:right;font-size:16px;font-weight:400;line-height:12px}
+.terms[open] summary:after{content:"−"}
+.terms-body{font-size:11.5px;line-height:1.7;color:#756a66;padding-top:8px;white-space:pre-line}
+.wallet-btn{display:block;text-decoration:none;text-align:center;background:#111;color:#fff;border-radius:12px;padding:12px 14px;margin-top:14px;font-size:13px;font-weight:600}
 .note{font-size:11px;line-height:1.7;color:#81746f;text-align:center;margin:17px 10px}
 .error{max-width:470px;margin:80px auto;background:#fff;padding:30px;border-radius:18px;text-align:center;color:#6d1532;line-height:1.8}
 </style>
@@ -38,7 +48,7 @@ body{margin:0;background:#efe9df;color:#261c1e;font-family:Arial,"PingFang TC","
 <div id="app" class="wrap"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbwifWZHiKFjal1NY3el6u4u6aBZIF6QCxRhnl9v2wz0PG_5TymN-1Gw96mf7rSGYfz2-w/exec";
+const API_URL="https://script.google.com/macros/s/AKfycbxdnu8gt-ryCQBBfFIHatvrVMouNy4_CNFrulN2zK8-geaaVwRoD_eZ3NwlcDFw7mHA/exec";
 const VERIFY_URL="https://the13palace.github.io/vip-dining/verify.html";
 const token=new URLSearchParams(location.search).get("t");
 const app=document.getElementById("app");
@@ -49,6 +59,25 @@ function datePair(p) {
   const a=p.validFrom || "—";
   const b=p.validUntil || "Ongoing / 持續有效";
   return `<div class="dates">Valid / 有效期：${esc(a)} – ${esc(b)}</div>`;
+}
+
+function facts(p){
+  const rows=[];
+  if(p.venueEn||p.venueZh) rows.push(`<div class="fact"><b>Venue / 適用場所：</b>${esc(p.venueEn)}${p.venueEn&&p.venueZh?' / ':''}${esc(p.venueZh)}</div>`);
+  if(p.eligibleItemsEn||p.eligibleItemsZh) rows.push(`<div class="fact"><b>Eligible / 適用：</b>${esc(p.eligibleItemsEn)}${p.eligibleItemsEn&&p.eligibleItemsZh?' / ':''}${esc(p.eligibleItemsZh)}</div>`);
+  if(p.excludedItemsEn||p.excludedItemsZh) rows.push(`<div class="fact"><b>Excluded / 不適用：</b>${esc(p.excludedItemsEn)}${p.excludedItemsEn&&p.excludedItemsZh?' / ':''}${esc(p.excludedItemsZh)}</div>`);
+  if(p.hoursEn||p.hoursZh) rows.push(`<div class="fact"><b>Hours / 適用時段：</b>${esc(p.hoursEn)}${p.hoursEn&&p.hoursZh?' / ':''}${esc(p.hoursZh)}</div>`);
+  return rows.length?`<div class="facts">${rows.join('')}</div>`:"";
+}
+
+function terms(p){
+  if(!p.termsEn&&!p.termsZh) return "";
+  const version=p.termsVersion?`<div class="dates">Terms version / 條款版本：${esc(p.termsVersion)}</div>`:"";
+  return `<details class="terms">
+    <summary>View Terms & Conditions / 查看條款及細則</summary>
+    <div class="terms-body">${esc(p.termsEn)}${p.termsEn&&p.termsZh?'\n\n':''}${esc(p.termsZh)}</div>
+    ${version}
+  </details>`;
 }
 
 async function load() {
@@ -65,9 +94,14 @@ async function load() {
      <div class="priv-zh">${esc(p.titleZh)}</div>
      <div class="benefit">${esc(p.benefitEn)}</div>
      <div class="benefit-zh">${esc(p.benefitZh)}</div>
-     <div class="desc">${esc(p.descriptionEn)}<br>${esc(p.descriptionZh)}</div>
+     ${(p.descriptionEn||p.descriptionZh)?`<div class="desc">${esc(p.descriptionEn)}${p.descriptionEn&&p.descriptionZh?'<br>':''}${esc(p.descriptionZh)}</div>`:''}
      ${datePair(p)}
+     ${facts(p)}
+     ${terms(p)}
    </div>`).join("");
+
+  const wallet=(x.wallet&&x.wallet.enabled&&x.wallet.appleUrl)
+    ? `<a class="wallet-btn" href="${esc(x.wallet.appleUrl)}">Add to Apple Wallet / 加入 Apple Wallet</a>` : "";
 
   app.innerHTML=`
    <div class="card">
@@ -84,14 +118,15 @@ async function load() {
       <div id="qrcode"></div>
     </div>
    </div>
+   ${wallet}
    <section class="section">
      <h3>Current Privileges</h3>
      <div class="zhheading">現行會員禮遇</div>
      ${privs || '<div class="desc">No current privileges are available at this time.<br>目前暫無適用禮遇。</div>'}
    </section>
    <div class="note">
-    Privileges may change from time to time. Please refer to this page for the latest applicable privileges.<br>
-    會員禮遇或會不時更新，最新適用禮遇以本頁顯示為準。
+    Privileges and terms may be updated from time to time. Please refer to this page for the latest applicable information.<br>
+    會員禮遇及條款或會不時更新，最新適用內容以本頁顯示為準。
    </div>`;
 
    new QRCode(document.getElementById("qrcode"), {
