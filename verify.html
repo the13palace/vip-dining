@@ -1,112 +1,76 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VIP Verification</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
-      background: #111;
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-    .card {
-      width: 100%;
-      max-width: 460px;
-      background: #1b1b1b;
-      border: 1px solid #3c3c3c;
-      border-radius: 18px;
-      padding: 30px;
-      text-align: center;
-    }
-    .brand { font-size: 26px; font-weight: 700; letter-spacing: 2px; }
-    .status { font-size: 30px; font-weight: 800; margin: 26px 0 14px; }
-    .active { color: #bff0c9; }
-    .inactive { color: #ffc4c4; }
-    .field { margin-top: 18px; }
-    .label { color: #a9a9a9; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
-    .value { margin-top: 6px; font-size: 19px; }
-    .small { margin-top: 24px; color: #999; font-size: 12px; line-height: 1.6; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Member Verification | 會員驗證</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f0ebe3;color:#291f21;font-family:Arial,"PingFang TC","Microsoft JhengHei",sans-serif;min-height:100vh;padding:28px 16px}
+.panel{max-width:470px;margin:0 auto;background:#fffdf9;border:1px solid #d6c6b0;border-radius:22px;overflow:hidden;box-shadow:0 16px 46px rgba(63,28,34,.10)}
+.head{background:#451126;color:#fff;text-align:center;padding:27px}
+.brand{font-family:Georgia,"Times New Roman",serif;letter-spacing:2.5px;font-size:21px}
+.cn{font-size:11px;letter-spacing:4px;color:#dfc393;margin-top:4px}
+.body{padding:28px}
+.result{text-align:center;border-bottom:1px solid #eadfd2;padding-bottom:22px;margin-bottom:20px}
+.ok{font-family:Georgia,"Times New Roman",serif;font-size:25px;color:#315537}
+.bad{font-family:Georgia,"Times New Roman",serif;font-size:23px;color:#8b1737}
+.zhstatus{font-size:14px;margin-top:5px}
+.row{display:flex;justify-content:space-between;gap:20px;padding:11px 0;border-bottom:1px solid #f0e8df;font-size:13px}
+.row span:first-child{color:#7d716e}
+.row strong{text-align:right;font-weight:500}
+.priv{background:#f7f1e9;border-radius:13px;padding:15px;margin-top:18px}
+.priv h3{font-size:12px;letter-spacing:1px;margin:0 0 10px;color:#6d1532}
+.item{margin-top:10px;font-size:13px;line-height:1.5}
+.check{margin-top:20px;padding:15px;border:1px solid #d8c7af;border-radius:12px;font-size:12px;line-height:1.65;color:#5e5351}
+.footer{text-align:center;font-size:10px;color:#90837e;padding:0 22px 23px;line-height:1.6}
+</style>
 </head>
 <body>
-  <main class="card">
-    <div class="brand">THE 13 PALACE</div>
-    <div style="margin-top:8px;color:#cfcfcf">VIP Verification</div>
+<div id="app" class="panel">
+ <div class="head"><div class="brand">THE 13 PALACE</div><div class="cn">十三皇宮</div></div>
+ <div class="body">Verifying... / 驗證中...</div>
+</div>
+<script>
+const API_URL="https://script.google.com/macros/s/AKfycbwifWZHiKFjal1NY3el6u4u6aBZIF6QCxRhnl9v2wz0PG_5TymN-1Gw96mf7rSGYfz2-w/exec";
+const token=new URLSearchParams(location.search).get("t");
+const app=document.getElementById("app");
+const esc=(v)=>String(v||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 
-    <div id="status" class="status">Checking...</div>
+async function load(){
+ let data={success:false,status:"Invalid"};
+ try{
+   if(token){
+     const r=await fetch(`${API_URL}?action=verifyV2&t=${encodeURIComponent(token)}`);
+     data=await r.json();
+   }
+ }catch(e){}
 
-    <div class="field">
-      <div class="label">Name</div>
-      <div id="name" class="value">-</div>
-    </div>
+ const active=data.success && data.status==="Active";
+ const priv=(data.privileges||[]).map(p=>`<div class="item"><strong>${esc(p.titleEn)} / ${esc(p.titleZh)}</strong><br>${esc(p.benefitEn)} / ${esc(p.benefitZh)}</div>`).join("");
 
-    <div class="field">
-      <div class="label">VIP No.</div>
-      <div id="vipNo" class="value">-</div>
-    </div>
-
-    <div class="field">
-      <div class="label">Dining Privilege</div>
-      <div id="privilege" class="value">-</div>
-    </div>
-
-    <div class="small">餐廳員工應以此即時驗證結果為準，不應只憑電子卡截圖提供優惠。</div>
-  </main>
-
-  <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbwifWZHiKFjal1NY3el6u4u6aBZIF6QCxRhnl9v2wz0PG_5TymN-1Gw96mf7rSGYfz2-w/exec";
-    const params = new URLSearchParams(window.location.search);
-    const vipNo = params.get('id');
-
-    const statusEl = document.getElementById('status');
-    const nameEl = document.getElementById('name');
-    const vipNoEl = document.getElementById('vipNo');
-    const privilegeEl = document.getElementById('privilege');
-
-    async function verify() {
-      if (!vipNo) {
-        statusEl.textContent = 'INVALID';
-        statusEl.className = 'status inactive';
-        return;
-      }
-
-      if (!API_URL || API_URL.includes('PASTE_YOUR')) {
-        statusEl.textContent = 'SYSTEM NOT CONFIGURED';
-        statusEl.className = 'status inactive';
-        return;
-      }
-
-      try {
-        const url = `${API_URL}?action=verify&id=${encodeURIComponent(vipNo)}`;
-        const response = await fetch(url);
-        const result = await response.json();
-
-        nameEl.textContent = result.name || '-';
-        vipNoEl.textContent = result.vipNo || vipNo;
-        privilegeEl.textContent = result.privilege || '-';
-
-        if (result.success && result.status === 'Approved') {
-          statusEl.textContent = '✓ ACTIVE';
-          statusEl.className = 'status active';
-        } else {
-          statusEl.textContent = result.status ? `✕ ${result.status.toUpperCase()}` : '✕ INVALID';
-          statusEl.className = 'status inactive';
-        }
-      } catch (err) {
-        statusEl.textContent = 'SYSTEM ERROR';
-        statusEl.className = 'status inactive';
-      }
-    }
-
-    verify();
-  </script>
+ app.innerHTML=`
+   <div class="head"><div class="brand">THE 13 PALACE</div><div class="cn">十三皇宮</div></div>
+   <div class="body">
+     <div class="result">
+       <div class="${active?'ok':'bad'}">${active?'ACTIVE MEMBER':'NOT VALID'}</div>
+       <div class="zhstatus">${active?'有效會員':'會員資格無效或不可使用'}</div>
+     </div>
+     ${active ? `
+       <div class="row"><span>Name / 姓名</span><strong>${esc(data.maskedName)}</strong></div>
+       <div class="row"><span>Member No. / 會員編號</span><strong>${esc(data.vipNo)}</strong></div>
+       <div class="row"><span>Mobile Verification / 手機核對</span><strong>•••• ${esc(data.phoneLast4)}</strong></div>
+       <div class="row"><span>Valid Until / 有效至</span><strong>${esc(data.expiryDate||"—")}</strong></div>
+       <div class="priv"><h3>CURRENT PRIVILEGES / 現行禮遇</h3>${priv||'No current privileges / 目前暫無適用禮遇'}</div>
+       <div class="check">
+         Restaurant staff should confirm the guest's registered mobile number ending before applying any privilege.<br>
+         餐廳員工在套用任何會員禮遇前，應先向客人核對登記手機號碼尾四位。
+       </div>` :
+       `<div class="check">Do not apply any Palace Privilege benefit. Please contact the authorised Palace Privilege administrator if assistance is required.<br>請勿套用任何 Palace Privilege 禮遇。如需協助，請聯絡獲授權的 Palace Privilege 管理人員。</div>`}
+   </div>
+   <div class="footer">Real-time membership verification / 會員資格即時驗證</div>`;
+}
+load();
+</script>
 </body>
 </html>
