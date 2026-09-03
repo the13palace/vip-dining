@@ -1,179 +1,152 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VIP Dining Privilege Registration</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Palace Privilege | 十三皇宮尊尚禮遇</title>
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
-      background: #111;
-      color: #f5f5f5;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-    .wrap {
-      width: 100%;
-      max-width: 520px;
-      background: #1a1a1a;
-      border: 1px solid #3a3a3a;
-      border-radius: 18px;
-      padding: 30px;
-      box-shadow: 0 12px 40px rgba(0,0,0,.35);
-    }
-    .brand {
-      text-align: center;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-      font-size: 28px;
-      font-weight: 700;
-    }
-    .subtitle {
-      text-align: center;
-      color: #cfcfcf;
-      margin-bottom: 28px;
-      line-height: 1.5;
-    }
-    label {
-      display: block;
-      margin: 16px 0 8px;
-      font-size: 14px;
-      color: #d9d9d9;
-    }
-    input {
-      width: 100%;
-      border: 1px solid #555;
-      background: #0f0f0f;
-      color: #fff;
-      padding: 14px 15px;
-      border-radius: 10px;
-      font-size: 16px;
-      outline: none;
-    }
-    input:focus { border-color: #999; }
-    button {
-      width: 100%;
-      margin-top: 22px;
-      border: 0;
-      border-radius: 10px;
-      padding: 15px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      background: #f1f1f1;
-      color: #111;
-    }
-    button:disabled { opacity: .55; cursor: not-allowed; }
-    .note {
-      margin-top: 18px;
-      font-size: 12px;
-      color: #9f9f9f;
-      line-height: 1.6;
-    }
-    .message {
-      margin-top: 18px;
-      padding: 14px;
-      border-radius: 10px;
-      display: none;
-      line-height: 1.5;
-    }
-    .ok { background: #17351f; color: #dff6e6; }
-    .err { background: #3a1717; color: #ffdede; }
+    *{box-sizing:border-box}
+    body{margin:0;background:#f4efe7;color:#2a2022;font-family:Arial,"PingFang TC","Microsoft JhengHei",sans-serif;min-height:100vh;padding:28px 18px}
+    .page{max-width:560px;margin:0 auto}
+    .crest{text-align:center;color:#6d1532;font-family:Georgia,"Times New Roman",serif;font-size:12px;letter-spacing:5px;margin-top:10px}
+    h1{text-align:center;font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:3px;font-size:29px;margin:9px 0 3px;color:#3a1120}
+    .cnbrand{text-align:center;font-size:14px;letter-spacing:5px;color:#6d1532;margin-bottom:30px}
+    .panel{background:#fffdf9;border:1px solid #d9ccb8;border-radius:20px;padding:30px 26px;box-shadow:0 16px 44px rgba(68,36,39,.09)}
+    .eyebrow{text-align:center;color:#a48350;letter-spacing:2.4px;font-size:11px;text-transform:uppercase}
+    h2{text-align:center;font-family:Georgia,"Times New Roman",serif;font-size:23px;font-weight:400;margin:9px 0 4px}
+    .zh-title{text-align:center;color:#6d1532;font-size:16px;margin-bottom:12px}
+    .intro{text-align:center;color:#6b6160;font-size:14px;line-height:1.75;margin:0 auto 26px;max-width:420px}
+    label{display:block;font-size:13px;margin:17px 0 7px;color:#4a3c3e}
+    input[type=text],input[type=tel],input[type=email]{width:100%;padding:14px 15px;border:1px solid #cfbfaa;border-radius:10px;background:#fff;color:#231a1b;font-size:16px;outline:none}
+    input:focus{border-color:#8e6b38;box-shadow:0 0 0 3px rgba(164,131,80,.10)}
+    .required{color:#8b1737}
+    .privacy{margin-top:20px;padding:15px;border-top:1px solid #e8dfd3;border-bottom:1px solid #e8dfd3}
+    .check{display:flex;gap:10px;align-items:flex-start;font-size:12px;line-height:1.6;color:#5e5555}
+    .check input{margin-top:3px}
+    details{margin-top:10px;font-size:12px;color:#756a68;line-height:1.65}
+    summary{cursor:pointer;color:#6d1532}
+    button{width:100%;margin-top:22px;border:1px solid #6d1532;border-radius:999px;padding:15px;background:#6d1532;color:white;font-size:14px;letter-spacing:.6px;cursor:pointer}
+    button:disabled{opacity:.55;cursor:not-allowed}
+    .message{display:none;margin-top:18px;border-radius:12px;padding:15px;font-size:13px;line-height:1.65}
+    .ok{display:block;background:#f1f6f0;border:1px solid #b8ceb4;color:#31502f}
+    .err{display:block;background:#fbefef;border:1px solid #e0baba;color:#7c2727}
+    .footer{text-align:center;color:#8a7d78;font-size:11px;line-height:1.7;margin:22px 0}
+    .hp{position:absolute;left:-10000px;opacity:0}
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <div class="brand">THE 13 PALACE</div>
-    <div class="subtitle">VIP Dining Privilege Registration<br>貴賓餐飲禮遇登記</div>
+  <div class="page">
+    <div class="crest">THE</div>
+    <h1>13 PALACE</h1>
+    <div class="cnbrand">十三皇宮</div>
 
-    <form id="vipForm">
-      <label for="name">Name / 姓名</label>
-      <input id="name" name="name" type="text" maxlength="80" required />
+    <section class="panel">
+      <div class="eyebrow">By Invitation Only · 僅限受邀貴賓</div>
+      <h2>Palace Privilege</h2>
+      <div class="zh-title">尊尚禮遇</div>
+      <p class="intro">
+        An exclusive privilege reserved for invited guests of The 13 Palace.<br>
+        十三皇宮為受邀貴賓專屬呈獻的尊尚禮遇。
+      </p>
 
-      <label for="phone">Mobile / 手機號碼</label>
-      <input id="phone" name="phone" type="tel" maxlength="30" required />
+      <form id="form">
+        <label>Name / 姓名 <span class="required">*</span></label>
+        <input id="name" type="text" maxlength="80" autocomplete="name" required>
 
-      <label for="email">Email / 電郵（必填）</label>
-      <input id="email" name="email" type="email" maxlength="120" />
+        <label>Mobile Number / 手機號碼 <span class="required">*</span></label>
+        <input id="phone" type="tel" maxlength="30" autocomplete="tel" required>
 
-      <label for="inviteCode">Invitation Code / 邀請碼</label>
-      <input id="inviteCode" name="inviteCode" type="text" maxlength="50" required />
+        <label>Email Address / 電郵地址 <span class="required">*</span></label>
+        <input id="email" type="email" maxlength="120" autocomplete="email" required>
 
-      <button id="submitBtn" type="submit">Submit Registration / 提交登記</button>
-    </form>
+        <label>Invitation Code / 邀請碼 <span class="required">*</span></label>
+        <input id="inviteCode" type="text" maxlength="50" autocomplete="off" required>
 
-    <div id="message" class="message"></div>
+        <div class="hp">
+          <label>Website</label><input id="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
 
-    <div class="note">
-      提交登記不代表禮遇已生效。所有申請須經確認及批准後方可使用。
-      Submitted registration does not constitute approval. Privileges are subject to verification and activation.
+        <div class="privacy">
+          <label class="check">
+            <input id="privacyAccepted" type="checkbox" required>
+            <span>
+              I acknowledge the collection and use of my personal information for Palace Privilege membership administration and related privilege services.<br>
+              本人知悉並同意十三皇宮為 Palace Privilege 會員管理及相關禮遇服務之目的收集及使用上述個人資料。
+            </span>
+          </label>
+          <details>
+            <summary>Privacy Notice / 私隱聲明</summary>
+            <p>
+              The information provided will be used for membership verification, administration, delivery of membership communications and the provision of applicable privileges. Access should be limited to authorised personnel.<br>
+              所提供之資料將用於會員身份核實、會員管理、會員相關通知及提供適用禮遇，並應僅限獲授權人員查閱。
+            </p>
+          </details>
+        </div>
+
+        <button id="submitBtn" type="submit">Activate My Privilege / 啟用尊尚禮遇</button>
+      </form>
+
+      <div id="message" class="message"></div>
+    </section>
+
+    <div class="footer">
+      Palace Privilege membership is subject to verification and approval.<br>
+      Palace Privilege 會員資格須經核實及批准後方正式生效。
     </div>
-  </main>
+  </div>
 
-  <script>
-    // 1) 把下面網址換成你部署後的 Google Apps Script Web App URL
-    const API_URL = "https://script.google.com/macros/s/AKfycbwifWZHiKFjal1NY3el6u4u6aBZIF6QCxRhnl9v2wz0PG_5TymN-1Gw96mf7rSGYfz2-w/exec";
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbwifWZHiKFjal1NY3el6u4u6aBZIF6QCxRhnl9v2wz0PG_5TymN-1Gw96mf7rSGYfz2-w/exec";
+const form = document.getElementById("form");
+const btn = document.getElementById("submitBtn");
+const msg = document.getElementById("message");
 
-    const form = document.getElementById('vipForm');
-    const button = document.getElementById('submitBtn');
-    const message = document.getElementById('message');
+function show(text, type) {
+  msg.className = "message " + type;
+  msg.innerHTML = text;
+  msg.style.display = "block";
+}
 
-    function showMessage(text, type) {
-      message.textContent = text;
-      message.className = `message ${type}`;
-      message.style.display = 'block';
-    }
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  btn.disabled = true;
+  btn.textContent = "Submitting... / 提交中...";
+  msg.style.display = "none";
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+  const payload = {
+    action: "registerV2",
+    name: document.getElementById("name").value.trim(),
+    phone: document.getElementById("phone").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    inviteCode: document.getElementById("inviteCode").value.trim(),
+    privacyAccepted: document.getElementById("privacyAccepted").checked,
+    website: document.getElementById("website").value
+  };
 
-      if (!API_URL || API_URL.includes('PASTE_YOUR')) {
-        showMessage('系統尚未設定 API URL，請先完成 Google Apps Script 部署。', 'err');
-        return;
-      }
-
-      const payload = {
-        action: 'register',
-        name: document.getElementById('name').value.trim(),
-        phone: document.getElementById('phone').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        inviteCode: document.getElementById('inviteCode').value.trim()
-      };
-
-      button.disabled = true;
-      button.textContent = 'Submitting...';
-      message.style.display = 'none';
-
-      try {
-        const response = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(payload)
-        });
-
-        const result = await response.json();
-
-        if (!result.success) {
-          throw new Error(result.message || 'Registration failed');
-        }
-
-        showMessage(
-          `登記已提交。申請編號：${result.applicationId}。待審批後方可享用 VIP 餐飲禮遇。`,
-          'ok'
-        );
-        form.reset();
-      } catch (err) {
-        showMessage(`提交失敗：${err.message}`, 'err');
-      } finally {
-        button.disabled = false;
-        button.textContent = 'Submit Registration / 提交登記';
-      }
+  try {
+    const r = await fetch(API_URL, {
+      method:"POST",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify(payload)
     });
-  </script>
+    const result = await r.json();
+    if(!result.success) throw new Error(result.message || "Unable to submit / 未能提交");
+
+    show(
+      "<strong>Thank You / 感謝您的登記</strong><br><br>" +
+      "Your Palace Privilege registration has been received. Your membership will be activated upon verification.<br>" +
+      "我們已收到您的 Palace Privilege 登記，會員資格將於核實後啟用。<br><br>" +
+      "Application No. / 申請編號：<strong>" + result.applicationId + "</strong>",
+      "ok"
+    );
+    form.reset();
+  } catch(err) {
+    show("<strong>Unable to submit / 未能提交</strong><br>" + err.message, "err");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Activate My Privilege / 啟用尊尚禮遇";
+  }
+});
+</script>
 </body>
 </html>
