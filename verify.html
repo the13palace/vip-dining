@@ -3,98 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Member Verification | 會員驗證</title>
+<title>會員驗證 | Member Verification</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#f0ebe3;color:#291f21;font-family:Arial,"PingFang TC","Microsoft JhengHei",sans-serif;min-height:100vh;padding:28px 16px}
-.panel{max-width:470px;margin:0 auto;background:#fffdf9;border:1px solid #d6c6b0;border-radius:22px;overflow:hidden;box-shadow:0 16px 46px rgba(63,28,34,.10)}
-.head{background:#451126;color:#fff;text-align:center;padding:27px}
-.brand{font-family:Georgia,"Times New Roman",serif;letter-spacing:2.5px;font-size:21px}
-.cn{font-size:11px;letter-spacing:4px;color:#dfc393;margin-top:4px}
-.body{padding:28px}
-.result{text-align:center;border-bottom:1px solid #eadfd2;padding-bottom:22px;margin-bottom:20px}
-.ok{font-family:Georgia,"Times New Roman",serif;font-size:25px;color:#315537}
-.bad{font-family:Georgia,"Times New Roman",serif;font-size:23px;color:#8b1737}
-.zhstatus{font-size:14px;margin-top:5px}
-.row{display:flex;justify-content:space-between;gap:20px;padding:11px 0;border-bottom:1px solid #f0e8df;font-size:13px}
-.row span:first-child{color:#7d716e}
-.row strong{text-align:right;font-weight:500}
-.priv{background:#f7f1e9;border-radius:13px;padding:15px;margin-top:18px}
-.priv h3{font-size:12px;letter-spacing:1px;margin:0 0 10px;color:#6d1532}
-.item{padding:13px 0;border-top:1px solid #e7dbcd;font-size:13px;line-height:1.55}
-.item:first-of-type{border-top:0;padding-top:0}
-.title{font-weight:700;color:#3c2530}
-.benefit{font-family:Georgia,"Times New Roman",serif;font-size:21px;color:#6d1532;margin:5px 0 8px}
-.detail{margin-top:5px;color:#5e5351}
-.detail b{color:#392d2c}
-.check{margin-top:20px;padding:15px;border:1px solid #d8c7af;border-radius:12px;font-size:12px;line-height:1.65;color:#5e5351}
-.notice{margin-top:16px;padding:13px 14px;background:#fff7ed;border-left:3px solid #a27a43;font-size:12px;line-height:1.6;color:#594b45}
-.footer{text-align:center;font-size:10px;color:#90837e;padding:0 22px 23px;line-height:1.6}
-.loading{text-align:center;padding:42px 20px;color:#766a66}
+*{box-sizing:border-box}:root{--wine:#5b1730;--gold:#b18a53;--paper:#fffdf9;--ink:#2d2325;--muted:#786c68;--line:#ece3d8}
+body{margin:0;background:#f1ece4;color:var(--ink);font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;min-height:100vh;padding:26px 16px 36px}
+.panel{max-width:470px;margin:0 auto;background:var(--paper);border:1px solid #d7c7b2;border-radius:22px;overflow:hidden;box-shadow:0 16px 46px rgba(63,28,34,.10)}
+.head{background:linear-gradient(145deg,#5c1731,#34101d);color:#fff;text-align:center;padding:25px}
+.brand-zh{font-family:"Songti TC","Noto Serif TC","PMingLiU",serif;letter-spacing:5px;font-size:21px}.brand-en{font-family:Georgia,"Times New Roman",serif;letter-spacing:2.4px;font-size:10.5px;color:#e2c99d;margin-top:4px}
+.body{padding:26px 28px}.result{text-align:center;border-bottom:1px solid #eadfd2;padding-bottom:22px;margin-bottom:19px}.ok-zh,.bad-zh{font-family:"Songti TC","Noto Serif TC",serif;font-size:25px}.ok-zh{color:#315537}.bad-zh{color:#8b1737}.status-en{font-family:Georgia,"Times New Roman",serif;font-size:12px;letter-spacing:1.2px;margin-top:4px;color:#7c726d}
+.row{display:flex;justify-content:space-between;gap:18px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px}.row-label{color:#766b67;line-height:1.35}.row-label small{display:block;color:#9d918c;font-size:10.5px;margin-top:2px}.row strong{text-align:right;font-weight:550}
+.priv{background:#f7f1e9;border-radius:14px;padding:16px;margin-top:18px}.priv-titlebox{margin-bottom:11px}.priv-titlebox .zh{font-weight:700;color:#5b1730;font-size:13px}.priv-titlebox .en{font-family:Georgia,"Times New Roman",serif;font-size:10px;color:#a07c65;letter-spacing:1px;margin-top:2px}
+.item{padding:13px 0;border-top:1px solid #e7dbcd;font-size:13px;line-height:1.58}.item:first-of-type{border-top:0;padding-top:0}.title-zh{font-weight:700;color:#3c2530}.title-en{font-family:Georgia,"Times New Roman",serif;color:#8b7e79;font-size:11.5px;margin-top:2px}.benefit-zh{font-family:"Songti TC","Noto Serif TC",serif;font-size:21px;color:#6d1532;margin:7px 0 1px}.benefit-en{font-family:Georgia,"Times New Roman",serif;font-size:13px;color:#8f4a61;margin-bottom:8px}.detail{margin-top:7px;color:#5e5351}.detail b{color:#392d2c}.detail small{display:block;color:#8d817c;font-size:11px;margin-top:1px}
+.check{margin-top:20px;padding:15px;border:1px solid #d8c7af;border-radius:12px;font-size:12px;line-height:1.68;color:#5e5351}.check strong{color:#4c2734}.check .en{display:block;color:#8e817d;font-size:11px;margin-top:5px}.notice{margin-top:16px;padding:13px 14px;background:#fff7ed;border-left:3px solid #a27a43;font-size:12px;line-height:1.65;color:#594b45}.notice .en{display:block;color:#8f817a;font-size:11px;margin-top:4px}.footer{text-align:center;font-size:10px;color:#90837e;padding:0 22px 23px;line-height:1.6}.loading{text-align:center;padding:42px 20px;color:#766a66}
 </style>
 </head>
 <body>
-<div id="app" class="panel">
-  <div class="head"><div class="brand">THE 13 PALACE</div><div class="cn">十三皇宮</div></div>
-  <div class="loading">Verifying... / 驗證中...</div>
-</div>
+<div id="app" class="panel"><div class="head"><div class="brand-zh">十三皇宮</div><div class="brand-en">THE 13 PALACE</div></div><div class="loading">正在驗證會員資料…<br>Verifying membership…</div></div>
 <script>
 const API_URL="https://script.google.com/macros/s/AKfycbxdnu8gt-ryCQBBfFIHatvrVMouNy4_CNFrulN2zK8-geaaVwRoD_eZ3NwlcDFw7mHA/exec";
-const token=new URLSearchParams(location.search).get("t");
-const app=document.getElementById("app");
+const token=new URLSearchParams(location.search).get("t");const app=document.getElementById("app");
 const esc=(v)=>String(v||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
-
-function privilegeHtml(p){
-  const venue = p.venueEn || p.venueZh ? `<div class="detail"><b>Venue / 適用場所：</b>${esc(p.venueEn)}${p.venueEn&&p.venueZh?' / ':''}${esc(p.venueZh)}</div>` : '';
-  const eligible = p.eligibleItemsEn || p.eligibleItemsZh ? `<div class="detail"><b>Eligible / 適用：</b>${esc(p.eligibleItemsEn)}${p.eligibleItemsEn&&p.eligibleItemsZh?' / ':''}${esc(p.eligibleItemsZh)}</div>` : '';
-  const excluded = p.excludedItemsEn || p.excludedItemsZh ? `<div class="detail"><b>Excluded / 不適用：</b>${esc(p.excludedItemsEn)}${p.excludedItemsEn&&p.excludedItemsZh?' / ':''}${esc(p.excludedItemsZh)}</div>` : '';
-  const hours = p.hoursEn || p.hoursZh ? `<div class="detail"><b>Hours / 時段：</b>${esc(p.hoursEn)}${p.hoursEn&&p.hoursZh?' / ':''}${esc(p.hoursZh)}</div>` : '';
-  const validity = p.validFrom || p.validUntil ? `<div class="detail"><b>Validity / 有效期：</b>${esc(p.validFrom||'')} ${p.validFrom&&p.validUntil?'–':''} ${esc(p.validUntil||'')}</div>` : '';
-  return `<div class="item">
-    <div class="title">${esc(p.titleEn)}${p.titleEn&&p.titleZh?' / ':''}${esc(p.titleZh)}</div>
-    <div class="benefit">${esc(p.benefitEn)}${p.benefitEn&&p.benefitZh?' / ':''}${esc(p.benefitZh)}</div>
-    ${venue}${eligible}${excluded}${hours}${validity}
-  </div>`;
-}
-
-async function load(){
-  let data={success:false,status:"Invalid"};
-  try{
-    if(token){
-      const r=await fetch(`${API_URL}?action=verifyV2&t=${encodeURIComponent(token)}`,{cache:'no-store'});
-      data=await r.json();
-    }
-  }catch(e){}
-
-  const active=data.success && data.status==="Active";
-  const priv=(data.privileges||[]).map(privilegeHtml).join("");
-
-  app.innerHTML=`
-    <div class="head"><div class="brand">THE 13 PALACE</div><div class="cn">十三皇宮</div></div>
-    <div class="body">
-      <div class="result">
-        <div class="${active?'ok':'bad'}">${active?'ACTIVE MEMBER':'NOT VALID'}</div>
-        <div class="zhstatus">${active?'有效會員':'會員資格無效或不可使用'}</div>
-      </div>
-      ${active ? `
-        <div class="row"><span>Name / 姓名</span><strong>${esc(data.maskedName)}</strong></div>
-        <div class="row"><span>Member No. / 會員編號</span><strong>${esc(data.vipNo)}</strong></div>
-        <div class="row"><span>Mobile / 手機</span><strong>•••• ${esc(data.phoneLast4)}</strong></div>
-        <div class="row"><span>Valid Until / 有效至</span><strong>${esc(data.expiryDate)}</strong></div>
-        <div class="priv">
-          <h3>CURRENT PRIVILEGES / 現行會員禮遇</h3>
-          ${priv || '<div class="item">No current privilege / 暫無現行禮遇</div>'}
-        </div>
-        <div class="check"><strong>Staff Check / 員工核對</strong><br>
-        Please confirm the guest's registered mobile number ending before applying any privilege.<br>
-        使用禮遇前，請與客人核對登記手機號碼尾四位。</div>
-        <div class="notice">This verification page reflects the member status and privilege conditions currently recorded by The 13 Palace. / 本頁顯示十三皇宮系統目前記錄的會員狀態及禮遇條件。</div>
-      ` : `
-        <div class="notice">Do not apply Palace Privilege benefits. Please contact the authorised Palace Privilege administrator if assistance is required.<br>請勿提供 Palace Privilege 會員禮遇。如有需要，請聯絡獲授權之會員管理人員。</div>
-      `}
-    </div>
-    <div class="footer">PALACE PRIVILEGE · THE 13 PALACE<br>尊尚禮遇 · 十三皇宮</div>`;
-}
+function detail(zhLabel,zh,enLabel,en){if(!zh&&!en)return'';return `<div class="detail"><b>${zhLabel}：</b>${esc(zh)}<small>${enLabel}: ${esc(en)}</small></div>`}
+function privilegeHtml(p){return `<div class="item"><div class="title-zh">${esc(p.titleZh)}</div><div class="title-en">${esc(p.titleEn)}</div><div class="benefit-zh">${esc(p.benefitZh)}</div><div class="benefit-en">${esc(p.benefitEn)}</div>${detail('適用場所',p.venueZh,'Venue',p.venueEn)}${detail('適用商品',p.eligibleItemsZh,'Eligible Items',p.eligibleItemsEn)}${detail('不適用商品',p.excludedItemsZh,'Excluded Items',p.excludedItemsEn)}${detail('適用時段',p.hoursZh,'Applicable Hours',p.hoursEn)}${detail('有效期',(p.validFrom||'')+(p.validFrom&&p.validUntil?' – ':'')+(p.validUntil||''),'Validity',(p.validFrom||'')+(p.validFrom&&p.validUntil?' – ':'')+(p.validUntil||''))}</div>`}
+async function load(){let data={success:false,status:'Invalid'};try{if(token){const r=await fetch(`${API_URL}?action=verifyV2&t=${encodeURIComponent(token)}`,{cache:'no-store'});data=await r.json()}}catch(e){}
+const active=data.success&&data.status==='Active';const priv=(data.privileges||[]).map(privilegeHtml).join('');
+app.innerHTML=`<div class="head"><div class="brand-zh">十三皇宮</div><div class="brand-en">THE 13 PALACE</div></div><div class="body"><div class="result"><div class="${active?'ok-zh':'bad-zh'}">${active?'有效會員':'會員資格無效'}</div><div class="status-en">${active?'ACTIVE MEMBER':'NOT VALID'}</div></div>${active?`
+<div class="row"><div class="row-label">姓名<small>Name</small></div><strong>${esc(data.maskedName)}</strong></div>
+<div class="row"><div class="row-label">會員編號<small>Member No.</small></div><strong>${esc(data.vipNo)}</strong></div>
+<div class="row"><div class="row-label">手機<small>Mobile</small></div><strong>•••• ${esc(data.phoneLast4)}</strong></div>
+<div class="row"><div class="row-label">有效至<small>Valid Until</small></div><strong>${esc(data.expiryDate)}</strong></div>
+<div class="priv"><div class="priv-titlebox"><div class="zh">現行會員禮遇</div><div class="en">CURRENT PRIVILEGES</div></div>${priv||'<div class="item">目前暫無現行禮遇。<div class="title-en">No current privilege.</div></div>'}</div>
+<div class="check"><strong>員工核對</strong><br>使用禮遇前，請與客人核對登記手機號碼尾四位。<span class="en">Staff Check: Please confirm the guest\'s registered mobile number ending before applying any privilege.</span></div>
+<div class="notice">本頁顯示十三皇宮系統目前記錄的會員狀態及禮遇條件。<span class="en">This verification page reflects the member status and privilege conditions currently recorded by The 13 Palace.</span></div>`:`<div class="notice">請勿提供 Palace Privilege 會員禮遇。如有需要，請聯絡獲授權之會員管理人員。<span class="en">Do not apply Palace Privilege benefits. Please contact the authorised Palace Privilege administrator if assistance is required.</span></div>`}</div><div class="footer">尊尚禮遇 · PALACE PRIVILEGE<br>十三皇宮 · THE 13 PALACE</div>`}
 load();
 </script>
 </body>
