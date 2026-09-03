@@ -2,46 +2,57 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Palace Privilege | 十三皇宮尊尚禮遇</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>十三皇宮尊尚禮遇 | Palace Privilege</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#efe9df;color:#261c1e;font-family:Arial,"PingFang TC","Microsoft JhengHei",sans-serif;min-height:100vh;padding:24px 16px}
+:root{--royal-gold:#BD9040;--royal-gold-dark:#9B7330;--deep:#241d15;--paper:#fffdf9;--ink:#2b241b;--muted:#796f63;--line:#e8dece;--bg:#f4efe7}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"NSimSun","新宋体","STHeiti","华文黑体","PMingLiU","MingLiU",serif;min-height:100vh;padding:24px 16px 34px}
 .wrap{max-width:470px;margin:0 auto}
-.card{position:relative;overflow:hidden;background:linear-gradient(145deg,#4b1128,#240913);color:#fff;border-radius:24px;padding:28px;min-height:300px;box-shadow:0 18px 50px rgba(52,13,28,.24);border:1px solid rgba(214,183,124,.5)}
-.card:before{content:"";position:absolute;right:-90px;top:-110px;width:260px;height:260px;border:1px solid rgba(221,191,135,.19);border-radius:50%}
-.brand{font-family:Georgia,"Times New Roman",serif;letter-spacing:3px;font-size:23px}
-.cn{font-size:11px;letter-spacing:4px;color:#e0c79d;margin-top:3px}
-.tag{margin-top:26px;color:#d9bc8d;font-size:10px;letter-spacing:2.2px}
-.name{font-family:Georgia,"Times New Roman",serif;font-size:26px;margin-top:7px}
-.meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:25px;font-size:11px;color:#ddcdbf}
-.meta strong{display:block;color:#fff;font-size:14px;margin-top:4px;font-weight:400}
-.bottom{display:flex;align-items:flex-end;justify-content:space-between;margin-top:25px;gap:16px}
-.status{font-size:11px;letter-spacing:1.4px;color:#dec48f}
+.card{position:relative;overflow:hidden;background:linear-gradient(145deg,#3a3023 0%,#1f1a14 72%);color:#fff;border-radius:24px;padding:27px 26px 25px;min-height:306px;box-shadow:0 18px 50px rgba(38,29,16,.24);border:1px solid rgba(189,144,64,.58)}
+.card:before{content:"";position:absolute;right:-92px;top:-105px;width:260px;height:260px;border:1px solid rgba(189,144,64,.20);border-radius:50%}
+.card:after{content:"";position:absolute;right:-45px;top:-58px;width:166px;height:166px;border:1px solid rgba(189,144,64,.13);border-radius:50%}
+.brand-zh{font-family:"NSimSun","新宋体","STHeiti","华文黑体","PMingLiU","MingLiU",serif;letter-spacing:5px;font-size:22px}
+.brand-en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;letter-spacing:3.2px;font-size:11px;color:#D7B56F;margin-top:5px}
+.tag{margin-top:28px;color:#D7B56F;font-size:10.5px;letter-spacing:2px}
+.name-label{font-size:10px;color:#D7B56F;margin-top:19px;letter-spacing:1.2px}
+.name{font-family:"NSimSun","新宋体","STHeiti","华文黑体","PMingLiU","MingLiU",serif;font-size:26px;margin-top:5px;letter-spacing:.3px}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:23px;font-size:10.5px;color:#D7B56F}
+.meta strong{display:block;color:#fff;font-size:14px;margin-top:5px;font-weight:500;letter-spacing:.2px}
+.bottom{display:flex;align-items:flex-end;justify-content:space-between;margin-top:24px;gap:16px}
+.status{font-size:11px;letter-spacing:1px;color:#D7B56F;line-height:1.55}
 #qrcode{background:white;padding:7px;border-radius:8px;width:94px;height:94px}
-.section{background:#fffdf9;border:1px solid #d8cab5;border-radius:18px;padding:22px;margin-top:16px}
-.section h3{font-family:Georgia,"Times New Roman",serif;font-size:18px;font-weight:400;margin:0 0 2px;color:#3e1221}
-.zhheading{font-size:13px;color:#8a173b;margin-bottom:16px}
-.priv{padding:17px 0;border-top:1px solid #eee3d5}
+.section{background:var(--paper);border:1px solid rgba(189,144,64,.42);border-radius:18px;padding:22px;margin-top:16px;box-shadow:0 8px 26px rgba(70,43,38,.04)}
+.section-title-zh{font-family:"NSimSun","新宋体","STHeiti","华文黑体","PMingLiU","MingLiU",serif;font-size:20px;color:#431322;letter-spacing:1px}
+.section-title-en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;font-size:11px;color:#9b7d5b;letter-spacing:1.8px;text-transform:uppercase;margin-top:3px;margin-bottom:16px}
+.priv{padding:18px 0;border-top:1px solid var(--line)}
 .priv:first-of-type{border-top:0;padding-top:0}
-.priv-title{font-weight:600;font-size:14px}
-.priv-zh{font-size:13px;color:#6d1532;margin-top:3px}
-.benefit{font-family:Georgia,"Times New Roman",serif;font-size:19px;margin-top:9px}
-.benefit-zh{font-size:14px;color:#6d1532;margin-top:3px}
-.desc{font-size:12px;line-height:1.65;color:#776b67;margin-top:8px}
-.dates{font-size:11px;color:#948781;margin-top:8px}
-.facts{margin-top:11px;border-top:1px solid #f0e7dc;padding-top:9px}
-.fact{font-size:11.5px;line-height:1.55;color:#5e5551;margin:4px 0}
-.fact b{color:#3e1221;font-weight:600}
-.terms{margin-top:12px;border-top:1px solid #eee3d5;padding-top:10px}
-.terms summary{cursor:pointer;list-style:none;font-size:12px;color:#6d1532;font-weight:600;padding:4px 0}
+.priv-title-zh{font-weight:650;font-size:15px;color:#38282c;line-height:1.45}
+.priv-title-en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;font-size:12px;color:#81736f;margin-top:3px}
+.benefit-zh{font-family:"NSimSun","新宋体","STHeiti","华文黑体","PMingLiU","MingLiU",serif;font-size:22px;color:var(--wine);margin-top:11px;line-height:1.45}
+.benefit-en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;font-size:15px;color:#6f263d;margin-top:2px;line-height:1.45}
+.desc{font-size:12px;line-height:1.72;color:var(--muted);margin-top:9px}
+.zhline{display:block;color:#5e5350}
+.enline{display:block;color:#928682;margin-top:2px;font-size:11.5px}
+.dates{font-size:11.5px;color:#7f736e;margin-top:10px;line-height:1.55}
+.facts{margin-top:12px;border-top:1px solid #f0e7dc;padding-top:10px}
+.fact{font-size:12px;line-height:1.62;color:#5f5551;margin:7px 0}
+.fact b{color:#3e1221;font-weight:650}
+.fact-en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;display:block;color:#8b7f7a;font-size:11.2px;margin-top:1px}
+.terms{margin-top:14px;border-top:1px solid var(--line);padding-top:11px}
+.terms summary{cursor:pointer;list-style:none;font-size:12px;color:var(--wine);font-weight:650;padding:5px 0}
 .terms summary::-webkit-details-marker{display:none}
 .terms summary:after{content:"＋";float:right;font-size:16px;font-weight:400;line-height:12px}
 .terms[open] summary:after{content:"−"}
-.terms-body{font-size:11.5px;line-height:1.7;color:#756a66;padding-top:8px;white-space:pre-line}
+.terms-body{font-size:11.7px;line-height:1.75;color:#756a66;padding-top:9px;white-space:pre-line}
+.terms-en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;display:block;color:#958983;margin-top:10px}
 .wallet-btn{display:block;text-decoration:none;text-align:center;background:#111;color:#fff;border-radius:12px;padding:12px 14px;margin-top:14px;font-size:13px;font-weight:600}
-.note{font-size:11px;line-height:1.7;color:#81746f;text-align:center;margin:17px 10px}
-.error{max-width:470px;margin:80px auto;background:#fff;padding:30px;border-radius:18px;text-align:center;color:#6d1532;line-height:1.8}
+.note{font-size:11px;line-height:1.75;color:#81746f;text-align:center;margin:17px 10px}
+.note .en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;display:block;color:#9a8d88;margin-top:3px;font-size:10.5px}
+.error{max-width:470px;margin:80px auto;background:#fff;padding:30px;border-radius:18px;text-align:center;color:var(--wine);line-height:1.8}
 </style>
 </head>
 <body>
@@ -54,86 +65,48 @@ const token=new URLSearchParams(location.search).get("t");
 const app=document.getElementById("app");
 const esc=(v)=>String(v||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 
-function datePair(p) {
-  if(!p.validFrom && !p.validUntil) return "";
-  const a=p.validFrom || "—";
-  const b=p.validUntil || "Ongoing / 持續有效";
-  return `<div class="dates">Valid / 有效期：${esc(a)} – ${esc(b)}</div>`;
+function datePair(p){
+ if(!p.validFrom&&!p.validUntil)return "";
+ const a=p.validFrom||"—"; const b=p.validUntil||"持續有效";
+ return `<div class="dates"><b>有效期</b>：${esc(a)} – ${esc(b)}<span class="fact-en">Validity: ${esc(a)} – ${esc(p.validUntil||"Ongoing")}</span></div>`;
 }
-
 function facts(p){
-  const rows=[];
-  if(p.venueEn||p.venueZh) rows.push(`<div class="fact"><b>Venue / 適用場所：</b>${esc(p.venueEn)}${p.venueEn&&p.venueZh?' / ':''}${esc(p.venueZh)}</div>`);
-  if(p.eligibleItemsEn||p.eligibleItemsZh) rows.push(`<div class="fact"><b>Eligible / 適用：</b>${esc(p.eligibleItemsEn)}${p.eligibleItemsEn&&p.eligibleItemsZh?' / ':''}${esc(p.eligibleItemsZh)}</div>`);
-  if(p.excludedItemsEn||p.excludedItemsZh) rows.push(`<div class="fact"><b>Excluded / 不適用：</b>${esc(p.excludedItemsEn)}${p.excludedItemsEn&&p.excludedItemsZh?' / ':''}${esc(p.excludedItemsZh)}</div>`);
-  if(p.hoursEn||p.hoursZh) rows.push(`<div class="fact"><b>Hours / 適用時段：</b>${esc(p.hoursEn)}${p.hoursEn&&p.hoursZh?' / ':''}${esc(p.hoursZh)}</div>`);
-  return rows.length?`<div class="facts">${rows.join('')}</div>`:"";
+ const rows=[];
+ if(p.venueZh||p.venueEn) rows.push(`<div class="fact"><b>適用場所：</b>${esc(p.venueZh)}<span class="fact-en">Venue: ${esc(p.venueEn)}</span></div>`);
+ if(p.eligibleItemsZh||p.eligibleItemsEn) rows.push(`<div class="fact"><b>適用商品：</b>${esc(p.eligibleItemsZh)}<span class="fact-en">Eligible Items: ${esc(p.eligibleItemsEn)}</span></div>`);
+ if(p.excludedItemsZh||p.excludedItemsEn) rows.push(`<div class="fact"><b>不適用商品：</b>${esc(p.excludedItemsZh)}<span class="fact-en">Excluded Items: ${esc(p.excludedItemsEn)}</span></div>`);
+ if(p.hoursZh||p.hoursEn) rows.push(`<div class="fact"><b>適用時段：</b>${esc(p.hoursZh)}<span class="fact-en">Applicable Hours: ${esc(p.hoursEn)}</span></div>`);
+ return rows.length?`<div class="facts">${rows.join("")}</div>`:"";
 }
-
 function terms(p){
-  if(!p.termsEn&&!p.termsZh) return "";
-  const version=p.termsVersion?`<div class="dates">Terms version / 條款版本：${esc(p.termsVersion)}</div>`:"";
-  return `<details class="terms">
-    <summary>View Terms & Conditions / 查看條款及細則</summary>
-    <div class="terms-body">${esc(p.termsEn)}${p.termsEn&&p.termsZh?'\n\n':''}${esc(p.termsZh)}</div>
-    ${version}
-  </details>`;
+ if(!p.termsZh&&!p.termsEn)return "";
+ const version=p.termsVersion?`<div class="dates">條款版本：${esc(p.termsVersion)}<span class="fact-en">Terms Version: ${esc(p.termsVersion)}</span></div>`:"";
+ return `<details class="terms"><summary>查看條款及細則 <span style="font-weight:400;color:#9a858a">/ Terms & Conditions</span></summary><div class="terms-body">${esc(p.termsZh)}${p.termsZh&&p.termsEn?'<span class="terms-en">'+esc(p.termsEn)+'</span>':esc(p.termsEn)}</div>${version}</details>`;
 }
-
-async function load() {
- if(!token) return fail("Invalid membership link.<br>會員連結無效。");
- try {
-  const r=await fetch(`${API_URL}?action=cardV2&t=${encodeURIComponent(token)}`);
+async function load(){
+ if(!token)return fail("會員連結無效。<br>Invalid membership link.");
+ try{
+  const r=await fetch(`${API_URL}?action=cardV2&t=${encodeURIComponent(token)}`,{cache:'no-store'});
   const x=await r.json();
-  if(!x.success) return fail((x.message||"Unable to load membership.")+"<br>未能載入會員資料。");
-  if(x.status!=="Active") return fail(`Membership status / 會員狀態：<strong>${esc(x.status)}</strong><br>Please contact Palace Privilege if assistance is required.<br>如需協助，請聯絡 Palace Privilege。`);
-
-  const privs=(x.privileges||[]).map(p=>`
-   <div class="priv">
-     <div class="priv-title">${esc(p.titleEn)}</div>
-     <div class="priv-zh">${esc(p.titleZh)}</div>
-     <div class="benefit">${esc(p.benefitEn)}</div>
-     <div class="benefit-zh">${esc(p.benefitZh)}</div>
-     ${(p.descriptionEn||p.descriptionZh)?`<div class="desc">${esc(p.descriptionEn)}${p.descriptionEn&&p.descriptionZh?'<br>':''}${esc(p.descriptionZh)}</div>`:''}
-     ${datePair(p)}
-     ${facts(p)}
-     ${terms(p)}
-   </div>`).join("");
-
-  const wallet=(x.wallet&&x.wallet.enabled&&x.wallet.appleUrl)
-    ? `<a class="wallet-btn" href="${esc(x.wallet.appleUrl)}">Add to Apple Wallet / 加入 Apple Wallet</a>` : "";
-
-  app.innerHTML=`
-   <div class="card">
-    <div class="brand">THE 13 PALACE</div>
-    <div class="cn">十三皇宮</div>
-    <div class="tag">PALACE PRIVILEGE · 尊尚禮遇</div>
-    <div class="name">${esc(x.name)}</div>
-    <div class="meta">
-      <div>MEMBER NO. / 會員編號<strong>${esc(x.vipNo)}</strong></div>
-      <div>VALID UNTIL / 有效至<strong>${esc(x.expiryDate||"—")}</strong></div>
-    </div>
-    <div class="bottom">
-      <div class="status">ACTIVE MEMBER · 有效會員</div>
-      <div id="qrcode"></div>
-    </div>
-   </div>
-   ${wallet}
-   <section class="section">
-     <h3>Current Privileges</h3>
-     <div class="zhheading">現行會員禮遇</div>
-     ${privs || '<div class="desc">No current privileges are available at this time.<br>目前暫無適用禮遇。</div>'}
-   </section>
-   <div class="note">
-    Privileges and terms may be updated from time to time. Please refer to this page for the latest applicable information.<br>
-    會員禮遇及條款或會不時更新，最新適用內容以本頁顯示為準。
-   </div>`;
-
-   new QRCode(document.getElementById("qrcode"), {
-     text:`${VERIFY_URL}?t=${encodeURIComponent(token)}`,
-     width:80,height:80
-   });
- } catch(e) { fail("Unable to load membership.<br>未能載入會員資料。"); }
+  if(!x.success)return fail("未能載入會員資料。<br>"+esc(x.message||"Unable to load membership."));
+  if(x.status!=="Active")return fail(`會員狀態：<strong>${esc(x.status)}</strong><br>如需協助，請聯絡 Palace Privilege。<br><span style="color:#857876">Membership status: ${esc(x.status)}. Please contact Palace Privilege for assistance.</span>`);
+  const privs=(x.privileges||[]).map(p=>`<div class="priv">
+    <div class="priv-title-zh">${esc(p.titleZh)}</div><div class="priv-title-en">${esc(p.titleEn)}</div>
+    <div class="benefit-zh">${esc(p.benefitZh)}</div><div class="benefit-en">${esc(p.benefitEn)}</div>
+    ${(p.descriptionZh||p.descriptionEn)?`<div class="desc"><span class="zhline">${esc(p.descriptionZh)}</span><span class="enline">${esc(p.descriptionEn)}</span></div>`:''}
+    ${facts(p)}${datePair(p)}${terms(p)}</div>`).join("");
+  const wallet=(x.wallet&&x.wallet.enabled&&x.wallet.appleUrl)?`<a class="wallet-btn" href="${esc(x.wallet.appleUrl)}">加入 Apple Wallet / Add to Apple Wallet</a>`:"";
+  app.innerHTML=`<div class="card">
+    <div class="brand-zh">十三皇宮</div><div class="brand-en">THE 13 PALACE</div>
+    <div class="tag">尊尚禮遇 · PALACE PRIVILEGE</div>
+    <div class="name-label">會員姓名 / MEMBER NAME</div><div class="name">${esc(x.name)}</div>
+    <div class="meta"><div>會員編號 / MEMBER NO.<strong>${esc(x.vipNo)}</strong></div><div>有效至 / VALID UNTIL<strong>${esc(x.expiryDate||"—")}</strong></div></div>
+    <div class="bottom"><div class="status">有效會員<br>ACTIVE MEMBER</div><div id="qrcode"></div></div>
+  </div>${wallet}
+  <section class="section"><div class="section-title-zh">現行會員禮遇</div><div class="section-title-en">CURRENT PRIVILEGES</div>${privs||'<div class="desc"><span class="zhline">目前暫無適用禮遇。</span><span class="enline">No current privileges are available at this time.</span></div>'}</section>
+  <div class="note">會員禮遇及條款或會不時更新，最新適用內容以本頁顯示為準。<span class="en">Privileges and terms may be updated from time to time. Please refer to this page for the latest applicable information.</span></div>`;
+  new QRCode(document.getElementById("qrcode"),{text:`${VERIFY_URL}?t=${encodeURIComponent(token)}`,width:80,height:80});
+ }catch(e){fail("未能載入會員資料。<br>Unable to load membership.")}
 }
 function fail(t){app.innerHTML=`<div class="error">${t}</div>`}
 load();
