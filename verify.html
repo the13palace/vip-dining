@@ -28,11 +28,60 @@ body{margin:0;background:#F6F1E8;color:var(--ink);font-family:"NSimSun","新宋�
 .access-none{color:#8b1737;font-size:12px;line-height:1.6;margin-top:8px}
 .check{margin-top:20px;padding:15px;border:1px solid rgba(189,144,64,.46);border-radius:12px;font-size:12px;line-height:1.68;color:#5e5351}.check strong{color:#4c2734}.check .en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;display:block;color:#8e817d;font-size:11px;margin-top:5px}.notice{margin-top:16px;padding:13px 14px;background:#fff7ed;border-left:3px solid var(--royal-gold);font-size:12px;line-height:1.65;color:#594b45}.notice .en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;display:block;color:#8f817a;font-size:11px;margin-top:4px}.footer{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;text-align:center;font-size:10px;color:#90837e;padding:0 22px 23px;line-height:1.6}.loading{text-align:center;padding:42px 20px;color:#766a66}
 </style>
+
+<style id="v27-black-gold">
+:root{
+  --royal-black:#2D2926;
+  --royal-gold:#BD9040;
+  --alt-gold:#8D704E;
+  --warm:#F7F4EE;
+  --paper:#FFFFFF;
+}
+html,body{background:var(--warm)!important;color:var(--royal-black)!important;}
+body{color:var(--royal-black)!important;}
+.the13-brand-logo{display:none!important;}
+.brand,.header,.top,.hero,.page-head{background:transparent!important;}
+h1,h2,h3,.title,.brand-title,.section-title-zh,.zh{color:var(--royal-black)!important;}
+.brand-en,.section-title-en,.en,.subtitle,.eyebrow,.kicker{color:var(--alt-gold)!important;}
+.card,.panel,.section,.access-section,.priv,.form-card,.box{
+  background:var(--paper)!important;
+  border-color:rgba(189,144,64,.42)!important;
+  box-shadow:0 14px 36px rgba(45,41,38,.08)!important;
+}
+input,select,textarea{
+  background:#fff!important;
+  color:var(--royal-black)!important;
+  border-color:#d8c9ac!important;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--royal-gold)!important;
+  box-shadow:0 0 0 2px rgba(189,144,64,.12)!important;
+}
+button,.primary,.cta,.submit-btn{
+  background:var(--royal-black)!important;
+  color:#fff!important;
+  border:1px solid var(--royal-black)!important;
+}
+button:hover,.primary:hover,.cta:hover,.submit-btn:hover{
+  background:#171513!important;
+}
+.status,.active,.benefit,.benefit-zh,.member-no,.expiry{
+  color:var(--royal-gold)!important;
+}
+.footer-band{
+  background:var(--royal-black)!important;
+  color:var(--royal-gold)!important;
+}
+.footer-note{
+  background:#E9D8B7!important;
+  color:var(--royal-black)!important;
+}
+hr,.divider{border-color:rgba(189,144,64,.45)!important;background:rgba(189,144,64,.45)!important;}
+a{color:var(--alt-gold)!important;}
+</style>
 </head>
 <body>
-<div class="the13-brand-logo" style="text-align:center;padding:22px 16px 10px;background:#F6F1E8">
-  <img src="the13-logo.jpg" alt="十三皇宮 十三皇宮" style="width:92px;max-width:28vw;height:auto;display:inline-block">
-</div>
+
 <div id="app" class="panel"><div class="head"><div class="brand-zh">十三皇宮</div><div class="brand-en">THE 13 PALACE</div></div><div class="loading">正在驗證會員資料…<br>Verifying membership…</div></div>
 <script>
 const API_URL="https://script.google.com/macros/s/AKfycbxdnu8gt-ryCQBBfFIHatvrVMouNy4_CNFrulN2zK8-geaaVwRoD_eZ3NwlcDFw7mHA/exec";
