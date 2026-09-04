@@ -8,8 +8,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <title>會員驗證 | Member Verification</title>
 <style>
-*{box-sizing:border-box}:root{--royal-gold:#BD9040;--royal-gold-dark:#9B7330;--deep:#241d15;--paper:#fffdf9;--ink:#2D2926;--muted:#786f64;--line:#ece3d8}
-body{margin:0;background:#F6F1E8;color:var(--ink);font-family:"NSimSun","新宋体","STHeiti","华文黑体","PMingLiU","MingLiU",serif;min-height:100vh;padding:26px 16px 36px}
+*{box-sizing:border-box}:root{--royal-gold:#BD9040;--royal-gold-dark:#9B7330;--deep:#241d15;--paper:#fffdf9;--ink:#2b241b;--muted:#786f64;--line:#ece3d8}
+body{margin:0;background:#f4efe7;color:var(--ink);font-family:"NSimSun","新宋体","STHeiti","华文黑体","PMingLiU","MingLiU",serif;min-height:100vh;padding:26px 16px 36px}
 .panel{max-width:470px;margin:0 auto;background:var(--paper);border:1px solid rgba(189,144,64,.42);border-radius:22px;overflow:hidden;box-shadow:0 16px 46px rgba(63,28,34,.10)}
 .head{background:linear-gradient(145deg,#3a3023,#1f1a14);color:#fff;text-align:center;padding:25px}
 .brand-zh{font-family:"NSimSun","新宋体","STHeiti","华文黑体","PMingLiU","MingLiU",serif;letter-spacing:5px;font-size:21px}.brand-en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;letter-spacing:2.4px;font-size:10.5px;color:#D7B56F;margin-top:4px}
@@ -17,71 +17,16 @@ body{margin:0;background:#F6F1E8;color:var(--ink);font-family:"NSimSun","新宋�
 .row{display:flex;justify-content:space-between;gap:18px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px}.row-label{color:#766b67;line-height:1.35}.row-label small{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;display:block;color:#9d918c;font-size:10.5px;margin-top:2px}.row strong{text-align:right;font-weight:550}
 .priv{background:#f7f1e9;border-radius:14px;padding:16px;margin-top:18px}.priv-titlebox{margin-bottom:11px}.priv-titlebox .zh{font-weight:700;color:var(--royal-gold-dark);font-size:13px}.priv-titlebox .en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;font-size:10px;color:#a07c65;letter-spacing:1px;margin-top:2px}
 .item{padding:13px 0;border-top:1px solid #e7dbcd;font-size:13px;line-height:1.58}.item:first-of-type{border-top:0;padding-top:0}.title-zh{font-weight:700;color:#3c2530}.title-en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;color:#8b7e79;font-size:11.5px;margin-top:2px}.benefit-zh{font-family:"NSimSun","新宋体","STHeiti","华文黑体","PMingLiU","MingLiU",serif;font-size:21px;color:var(--royal-gold-dark);margin:7px 0 1px}.benefit-en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;font-size:13px;color:#8f6f39;margin-bottom:8px}.detail{margin-top:7px;color:#5e5351}.detail b{color:#392d2c}.detail small{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;display:block;color:#8d817c;font-size:11px;margin-top:1px}
-.access{background:#f8f4eb;border:1px solid #e5d4b6;border-radius:14px;padding:16px;margin-top:18px}
-.access-title .zh{font-weight:700;color:#8d704e;font-size:13px}
-.access-title .en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;font-size:10px;color:#9a8260;letter-spacing:1px;margin-top:2px}
-.access-item{padding:12px 0;border-top:1px solid #e7dbcd}
-.access-item:first-of-type{border-top:0}
+.access{background:#f8f3eb;border:1px solid rgba(189,144,64,.34);border-radius:14px;padding:16px;margin-top:18px}
+.access-title{margin-bottom:8px}.access-title .zh{font-weight:700;color:var(--royal-gold-dark);font-size:13px}.access-title .en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;font-size:10px;color:#a07c65;letter-spacing:1px;margin-top:2px}
+.access-item{padding:12px 0;border-top:1px solid #e7dbcd}.access-item:first-of-type{border-top:0}
 .access-ok{color:#315537;font-weight:700;margin-top:4px}
-.access-detail{font-size:12px;color:#5e5351;margin-top:5px;line-height:1.55}
-.access-detail small{display:block;color:#8d817c;font-size:10.5px}
+.access-detail{font-size:12px;color:#5e5351;margin-top:5px;line-height:1.55}.access-detail small{display:block;color:#8d817c;font-size:10.5px}
 .access-none{color:#8b1737;font-size:12px;line-height:1.6;margin-top:8px}
 .check{margin-top:20px;padding:15px;border:1px solid rgba(189,144,64,.46);border-radius:12px;font-size:12px;line-height:1.68;color:#5e5351}.check strong{color:#4c2734}.check .en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;display:block;color:#8e817d;font-size:11px;margin-top:5px}.notice{margin-top:16px;padding:13px 14px;background:#fff7ed;border-left:3px solid var(--royal-gold);font-size:12px;line-height:1.65;color:#594b45}.notice .en{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;display:block;color:#8f817a;font-size:11px;margin-top:4px}.footer{font-family:"Josefin Sans","Helvetica Neue",Arial,sans-serif;text-align:center;font-size:10px;color:#90837e;padding:0 22px 23px;line-height:1.6}.loading{text-align:center;padding:42px 20px;color:#766a66}
 </style>
-
-<style id="v27-black-gold">
-:root{
-  --royal-black:#2D2926;
-  --royal-gold:#BD9040;
-  --alt-gold:#8D704E;
-  --warm:#F7F4EE;
-  --paper:#FFFFFF;
-}
-html,body{background:var(--warm)!important;color:var(--royal-black)!important;}
-body{color:var(--royal-black)!important;}
-.the13-brand-logo{display:none!important;}
-.brand,.header,.top,.hero,.page-head{background:transparent!important;}
-h1,h2,h3,.title,.brand-title,.section-title-zh,.zh{color:var(--royal-black)!important;}
-.brand-en,.section-title-en,.en,.subtitle,.eyebrow,.kicker{color:var(--alt-gold)!important;}
-.card,.panel,.section,.access-section,.priv,.form-card,.box{
-  background:var(--paper)!important;
-  border-color:rgba(189,144,64,.42)!important;
-  box-shadow:0 14px 36px rgba(45,41,38,.08)!important;
-}
-input,select,textarea{
-  background:#fff!important;
-  color:var(--royal-black)!important;
-  border-color:#d8c9ac!important;
-}
-input:focus,select:focus,textarea:focus{
-  border-color:var(--royal-gold)!important;
-  box-shadow:0 0 0 2px rgba(189,144,64,.12)!important;
-}
-button,.primary,.cta,.submit-btn{
-  background:var(--royal-black)!important;
-  color:#fff!important;
-  border:1px solid var(--royal-black)!important;
-}
-button:hover,.primary:hover,.cta:hover,.submit-btn:hover{
-  background:#171513!important;
-}
-.status,.active,.benefit,.benefit-zh,.member-no,.expiry{
-  color:var(--royal-gold)!important;
-}
-.footer-band{
-  background:var(--royal-black)!important;
-  color:var(--royal-gold)!important;
-}
-.footer-note{
-  background:#E9D8B7!important;
-  color:var(--royal-black)!important;
-}
-hr,.divider{border-color:rgba(189,144,64,.45)!important;background:rgba(189,144,64,.45)!important;}
-a{color:var(--alt-gold)!important;}
-</style>
 </head>
 <body>
-
 <div id="app" class="panel"><div class="head"><div class="brand-zh">十三皇宮</div><div class="brand-en">THE 13 PALACE</div></div><div class="loading">正在驗證會員資料…<br>Verifying membership…</div></div>
 <script>
 const API_URL="https://script.google.com/macros/s/AKfycbxdnu8gt-ryCQBBfFIHatvrVMouNy4_CNFrulN2zK8-geaaVwRoD_eZ3NwlcDFw7mHA/exec";
@@ -91,7 +36,7 @@ function detail(zhLabel,zh,enLabel,en){if(!zh&&!en)return'';return `<div class="
 function privilegeHtml(p){return `<div class="item"><div class="title-zh">${esc(p.titleZh)}</div><div class="title-en">${esc(p.titleEn)}</div><div class="benefit-zh">${esc(p.benefitZh)}</div><div class="benefit-en">${esc(p.benefitEn)}</div>${detail('適用場所',p.venueZh,'Venue',p.venueEn)}${detail('適用商品',p.eligibleItemsZh,'Eligible Items',p.eligibleItemsEn)}${detail('不適用商品',p.excludedItemsZh,'Excluded Items',p.excludedItemsEn)}${detail('適用時段',p.hoursZh,'Applicable Hours',p.hoursEn)}${detail('有效期',(p.validFrom||'')+(p.validFrom&&p.validUntil?' – ':'')+(p.validUntil||''),'Validity',(p.validFrom||'')+(p.validFrom&&p.validUntil?' – ':'')+(p.validUntil||''))}</div>`}
 async function load(){let data={success:false,status:'Invalid'};try{if(token){const r=await fetch(`${API_URL}?action=verifyV2&t=${encodeURIComponent(token)}`,{cache:'no-store'});data=await r.json()}}catch(e){}
 const active=data.success&&data.status==='Active';const priv=(data.privileges||[]).map(privilegeHtml).join('');
-const access=(data.accessPermissions||[]).map(a=>`<div class="access-item"><div><strong>${esc(a.typeZh)}</strong><div class="title-en">${esc(a.typeEn)}</div></div><div class="access-ok">✓ 可使用 · ACCESS GRANTED</div>${a.validUntil?`<div class="access-detail">有效至：${esc(a.validUntil)}<small>Valid Until: ${esc(a.validUntil)}</small></div>`:''}${a.maxGuests>0?`<div class="access-detail">可攜同賓客：${esc(a.maxGuests)} 位<small>Accompanying Guests: ${esc(a.maxGuests)}</small></div>`:''}${(a.hoursZh||a.hoursEn)?`<div class="access-detail">適用時段：${esc(a.hoursZh)}<small>Hours: ${esc(a.hoursEn)}</small></div>`:''}</div>`).join('');
+const access=(data.accessPermissions||[]).map(a=>`<div class="access-item"><div class="title-zh">${esc(a.typeZh)}</div><div class="title-en">${esc(a.typeEn)}</div><div class="access-ok">✓ 可使用 · ACCESS GRANTED</div>${a.validUntil?`<div class="access-detail">有效至：${esc(a.validUntil)}<small>Valid Until: ${esc(a.validUntil)}</small></div>`:''}${a.maxGuests>0?`<div class="access-detail">可攜同賓客：${esc(a.maxGuests)} 位<small>Accompanying Guests: ${esc(a.maxGuests)}</small></div>`:''}${(a.hoursZh||a.hoursEn)?`<div class="access-detail">適用時段：${esc(a.hoursZh)}<small>Hours: ${esc(a.hoursEn)}</small></div>`:''}</div>`).join('');
 app.innerHTML=`<div class="head"><div class="brand-zh">十三皇宮</div><div class="brand-en">THE 13 PALACE</div></div><div class="body"><div class="result"><div class="${active?'ok-zh':'bad-zh'}">${active?'有效會員':'會員資格無效'}</div><div class="status-en">${active?'ACTIVE MEMBER':'NOT VALID'}</div></div>${active?`
 <div class="row"><div class="row-label">姓名<small>Name</small></div><strong>${esc(data.maskedName)}</strong></div>
 <div class="row"><div class="row-label">會員編號<small>Member No.</small></div><strong>${esc(data.vipNo)}</strong></div>
@@ -100,7 +45,7 @@ app.innerHTML=`<div class="head"><div class="brand-zh">十三皇宮</div><div cl
 <div class="access"><div class="access-title"><div class="zh">專屬設施權限</div><div class="en">FACILITY ACCESS</div></div>${access||'<div class="access-none">目前沒有已授權的設施使用權限。<div class="title-en">NO FACILITY ACCESS GRANTED</div></div>'}</div>
 <div class="priv"><div class="priv-titlebox"><div class="zh">現行會員禮遇</div><div class="en">CURRENT PRIVILEGES</div></div>${priv||'<div class="item">目前暫無現行禮遇。<div class="title-en">No current privilege.</div></div>'}</div>
 <div class="check"><strong>員工核對</strong><br>使用禮遇前，請與客人核對登記手機號碼尾四位。<span class="en">Staff Check: Please confirm the guest\'s registered mobile number ending before applying any privilege.</span></div>
-<div class="notice">本頁顯示十三皇宮系統目前記錄的會員狀態及禮遇條件。<span class="en">This verification page reflects the member status and privilege conditions currently recorded by 十三皇宮.</span></div>`:`<div class="notice">請勿提供 Palace Privilege 會員禮遇。如有需要，請聯絡獲授權之會員管理人員。<span class="en">Do not apply Palace Privilege benefits. Please contact the authorised Palace Privilege administrator if assistance is required.</span></div>`}</div><div class="footer">尊尚禮遇 · PALACE PRIVILEGE<br>十三皇宮 · THE 13 PALACE</div>`}
+<div class="notice">本頁顯示十三皇宮系統目前記錄的會員狀態及禮遇條件。<span class="en">This verification page reflects the member status and privilege conditions currently recorded by The 13 Palace.</span></div>`:`<div class="notice">請勿提供 Palace Privilege 會員禮遇。如有需要，請聯絡獲授權之會員管理人員。<span class="en">Do not apply Palace Privilege benefits. Please contact the authorised Palace Privilege administrator if assistance is required.</span></div>`}</div><div class="footer">尊尚禮遇 · PALACE PRIVILEGE<br>十三皇宮 · THE 13 PALACE</div>`}
 load();
 </script>
 </body>
